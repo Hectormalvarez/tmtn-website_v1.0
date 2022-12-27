@@ -31,9 +31,9 @@ const projects = [
 function App() {
   return (
     <main className="font-nunito max-w-6xl mx-auto">
-      <header className="text-gray-900 pt-8 md:pt-16 capitalize text-center lg:flex lg:align-middle justify-center mx-4">
+      <header className="text-gray-900 pt-8 lg:pt-16 capitalize text-center lg:flex lg:align-middle justify-center mx-4">
         <div className="my-auto lg:grow">
-          <p className="text-4xl md:text-5xl">hector alvarez</p>
+          <p className="text-4xl lg:text-5xl">hector alvarez</p>
           <p className="text-lg">full stack development & UX \ UI</p>
         </div>
         <img
@@ -56,7 +56,7 @@ function App() {
                 tech stack: {project.techstack}
               </p>
             </div>
-            <div className="h-16 bg-gray-200 flex justify-around md:h-20 m-4">
+            <div className="h-16 bg-gray-200 flex justify-around align-middle md:h-20 md:my-auto md:mx-4">
               <img
                 src="github.svg"
                 alt="github svg icon"
