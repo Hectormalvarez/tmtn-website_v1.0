@@ -1,12 +1,8 @@
-import React, { FC } from "react";
+import React from "react";
 
-import { ProjectInt } from "./ProjectCatalog";
+import ProjectLink from "./ProjectLink";
 
-interface ProjectPropsInt {
-  project: ProjectInt;
-}
-
-const Project: FC<ProjectPropsInt> = ({ project }) => {
+const Project= ({ project }: any) => {
   return (
     <article
       key={project.name}
@@ -20,22 +16,10 @@ const Project: FC<ProjectPropsInt> = ({ project }) => {
         </p>
       </div>
       <div className="h-16 bg-gray-200 flex justify-around align-middle md:h-20 md:my-auto md:mx-4">
-        <img
-          src="github.svg"
-          alt="github svg icon"
-          className="py-2 px-6 lg:hover:bg-white lg:hover:cursor-pointer"
-        />
-        <img
-          src="figma.svg"
-          alt="figma svg icon"
-          className="py-2 px-6 lg:hover:bg-white lg:hover:cursor-pointer"
-        />
-        <img
-          src="website.svg"
-          alt="website svg icon"
-          className="py-2 px-6 lg:hover:bg-white lg:hover:cursor-pointer"
-        />
-      </div>{" "}
+        {project.links?.map((link: any) => {
+            return <ProjectLink name={link.name} />
+        })}
+      </div>
     </article>
   );
 };
