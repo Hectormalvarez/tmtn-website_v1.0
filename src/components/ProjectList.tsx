@@ -34,7 +34,7 @@ const projects: ProjectInt[] = [
     links: [
       {
         name: "github",
-        url: "github.com",
+        url: "https://github.com",
       },
       {
         name: "figma",
@@ -50,20 +50,6 @@ const projects: ProjectInt[] = [
     name: "mgdrywall-usa.com",
     description: "MG Drywall U.S.A company website",
     techstack: "javascript (next.js), hosted on AWS with Amplify",
-    links: [
-      {
-        name: "github",
-        url: "github.com",
-      },
-      {
-        name: "figma",
-        url: "figma.com",
-      },
-      {
-        name: "website",
-        url: "website.com",
-      },
-    ],
   },
   {
     name: "discord-bot",
@@ -72,7 +58,7 @@ const projects: ProjectInt[] = [
     links: [
       {
         name: "github",
-        url: "github.com",
+        url: "https://github.com",
       },
 
     ],
@@ -84,7 +70,7 @@ const projects: ProjectInt[] = [
     links: [
       {
         name: "github",
-        url: "github.com",
+        url: "https://github.com",
       },
     ],
   },

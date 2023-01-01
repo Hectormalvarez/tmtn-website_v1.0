@@ -12,20 +12,22 @@ const Project: React.FC<ProjectProps> = ({ project }) => {
   return (
     <article
       key={project.name}
-      className="p-2 bg-gray-800 m-4 text-gray-100 md:flex md:align-middle md:justify-center"
+      className="p-2 bg-gray-800 m-4 text-gray-100 flex flex-col lg:flex-row lg:align-middle lg:justify-center lg:h-48"
     >
-      <div className="p-4 flex-grow">
-        <h3 className="text-xl md:text-3xl">{project.name}</h3>
-        <p className="text-sm md:text-lg">{project.description}</p>
+      <div className="p-4 flex-grow flex flex-col">
+        <h3 className="text-xl lg:text-3xl">{project.name}</h3>
+        <p className="text-sm lg:text-lg flex-grow">{project.description}</p>
         <p className="pb-2 text-xs text-white">
           tech stack: {project.techstack}
         </p>
       </div>
-      <div className="bg-gray-200 flex flex-row-reverse justify-around align-middle md:h-20 md:my-auto md:mx-4">
-        {project.links?.map((link) => {
-            return <ProjectLink link={link} />
-        })}
-      </div>
+      {project.links ? (
+        <div className="bg-gray-200 flex flex-row-reverse justify-around m-4">
+          {project.links?.map((link) => {
+            return <ProjectLink link={link} />;
+          })}
+        </div>
+      ) : <p className="p-4 lg:p-16 text-lg lg:text-xl uppercase">links coming soon!</p>}
     </article>
   );
 };
