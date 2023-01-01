@@ -1,7 +1,7 @@
 import React from "react";
 import Project from "./Project";
 
-interface ProjectInt {
+export interface ProjectInt {
   name: string;
   description: string;
   techstack: string;
@@ -19,11 +19,11 @@ const projects: ProjectInt[] = [
     links: [
       {
         name: "github",
-        url: "github.com",
+        url: "https://github.com",
       },
       {
         name: "website",
-        url: "website.com",
+        url: "https://www.taylormadetech.net",
       },
     ],
   },
@@ -42,7 +42,7 @@ const projects: ProjectInt[] = [
       },
       {
         name: "website",
-        url: "website.com",
+        url: "https://secrets.taylormadetech.net",
       },
     ],
   },

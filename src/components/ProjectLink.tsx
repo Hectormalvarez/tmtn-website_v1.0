@@ -1,12 +1,22 @@
 import React from "react";
 
-const ProjectLink = ({name}: any) => {
+
+interface ProjectLinkProps {
+  link: {
+    name: string;
+    url: string;
+  };
+}
+
+const ProjectLink: React.FC<ProjectLinkProps> = ({ link }) => {
   return (
-    <img
-      src={`${name}.svg`}
-      alt={`${name} svg icon`}
-      className="py-2 px-6 lg:hover:bg-white lg:hover:cursor-pointer"
-    />
+    <a href={`${link.url}`} target="_blank" rel="noreferrer">
+      <img
+        src={`${link.name}.svg`}
+        alt={`${link.name} svg icon`}
+        className="py-2 px-6 h-auto w-28 lg:hover:bg-white lg:hover:cursor-pointer"
+      />
+    </a>
   );
 };
 

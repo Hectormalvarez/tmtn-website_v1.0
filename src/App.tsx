@@ -1,7 +1,7 @@
 import React from "react";
 
 import Header from "./components/Header";
-import ProjectCatalog from "./components/ProjectCatalog";
+import ProjectCatalog from "./components/ProjectList";
 
 
 

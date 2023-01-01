@@ -1,8 +1,14 @@
 import React from "react";
 
+import { ProjectInt } from "./ProjectList";
 import ProjectLink from "./ProjectLink";
 
-const Project= ({ project }: any) => {
+interface ProjectProps {
+  project: ProjectInt;
+  children?: React.ReactNode;
+}
+
+const Project: React.FC<ProjectProps> = ({ project }) => {
   return (
     <article
       key={project.name}
@@ -15,9 +21,9 @@ const Project= ({ project }: any) => {
           tech stack: {project.techstack}
         </p>
       </div>
-      <div className="h-16 bg-gray-200 flex justify-around align-middle md:h-20 md:my-auto md:mx-4">
-        {project.links?.map((link: any) => {
-            return <ProjectLink name={link.name} />
+      <div className="bg-gray-200 flex flex-row-reverse justify-around align-middle md:h-20 md:my-auto md:mx-4">
+        {project.links?.map((link) => {
+            return <ProjectLink link={link} />
         })}
       </div>
     </article>
