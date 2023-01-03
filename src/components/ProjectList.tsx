@@ -60,7 +60,6 @@ const projects: ProjectInt[] = [
         name: "github",
         url: "https://github.com",
       },
-
     ],
   },
   {

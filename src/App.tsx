@@ -1,13 +1,13 @@
 import React from "react";
 
 import Header from "./components/Header";
-import ProjectCatalog from "./components/ProjectList";
+import ProjectList from "./components/ProjectList";
 
 function App() {
   return (
     <main className="font-nunito max-w-6xl mx-auto">
       <Header />
-      <ProjectCatalog />
+      <ProjectList />
       <footer className="text-lg text-center p-4">
         <p>
           check out my{" "}

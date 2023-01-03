@@ -14,7 +14,7 @@ const Project: React.FC<ProjectProps> = ({ project }) => {
       key={project.name}
       className="p-2 bg-gray-800 m-4 text-gray-100 flex flex-col lg:flex-row lg:align-middle lg:justify-center lg:h-48"
     >
-      <div className="p-4 flex-grow flex flex-col">
+      <div className="p-4 lg:flex-grow flex flex-col">
         <h3 className="text-xl lg:text-3xl">{project.name}</h3>
         <p className="text-sm lg:text-lg flex-grow">{project.description}</p>
         <p className="pb-2 text-xs text-white">
@@ -27,7 +27,11 @@ const Project: React.FC<ProjectProps> = ({ project }) => {
             return <ProjectLink link={link} />;
           })}
         </div>
-      ) : <p className="p-4 lg:p-16 text-lg lg:text-xl uppercase">links coming soon!</p>}
+      ) : (
+        <p className="p-4 lg:p-16 text-lg lg:text-xl uppercase">
+          links coming soon!
+        </p>
+      )}
     </article>
   );
 };
