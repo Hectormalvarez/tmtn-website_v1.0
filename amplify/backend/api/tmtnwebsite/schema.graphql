@@ -1,0 +1,22 @@
+enum LinkType {
+  GITHUB
+  FIGMA
+  WEBSITE
+}
+
+type TMTNProject @model @auth(rules: [{allow: public, operations: [read]}, {allow: owner}]) {
+  id: ID!
+  name: String!
+  description: String!
+  techstack: String!
+  links: [TMTNProjectLink] @manyToMany(relationName: "ProjectLinks")
+}
+
+type TMTNProjectLink @model @auth(rules: [{allow: public, operations: [read]}, {allow: owner}]) {
+  id: ID!
+  name: String!
+  url: String!
+  projects: [TMTNProject] @manyToMany(relationName: "ProjectLinks")
+  type: LinkType
+}
+ 

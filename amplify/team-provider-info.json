@@ -10,6 +10,14 @@
       "StackName": "amplify-tmtnwebsite-dev-155020",
       "StackId": "arn:aws:cloudformation:us-east-1:180025060303:stack/amplify-tmtnwebsite-dev-155020/4983f4b0-8a1e-11ed-9bff-0a87925b72df",
       "AmplifyAppId": "d2949xlgqw15hx"
+    },
+    "categories": {
+      "auth": {
+        "tmtnwebsite6cc63b1f": {}
+      },
+      "api": {
+        "tmtnwebsite": {}
+      }
     }
   }
 }
