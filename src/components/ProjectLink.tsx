@@ -16,7 +16,9 @@ const ProjectLink: React.FC<ProjectLinkProps> = ({ link }) => {
           alt={`${link.name} svg icon`}
           className="w-8 lg:w-16 mx-auto"
         />
-        <figcaption className="capitalize text-center text-gray-800 font-bold">{link.name}</figcaption>
+        <figcaption className="capitalize text-center text-gray-800 font-bold">
+          {link.name}
+        </figcaption>
       </a>
     </figure>
   );

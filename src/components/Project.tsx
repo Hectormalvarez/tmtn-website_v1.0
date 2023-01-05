@@ -28,8 +28,3 @@ const Project: React.FC<ProjectProps> = ({ project, loggedIn }) => {
 };
 
 export default Project;
-
-
-
-
-

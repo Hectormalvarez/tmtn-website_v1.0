@@ -1,4 +1,6 @@
-export const Footer = () => (
+import React from "react";
+
+const Footer = () => (
   <footer className="text-lg text-center p-4">
     <p>
       check out my{" "}
@@ -14,3 +16,5 @@ export const Footer = () => (
     <p>copyright 2022</p>
   </footer>
 );
+
+export default Footer;

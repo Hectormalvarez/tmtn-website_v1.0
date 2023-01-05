@@ -1,4 +1,6 @@
-export const AddLink: React.FC<{loggedIn: boolean}> = ({loggedIn}) => {
+import React from "react";
+
+const AddLink: React.FC<{ loggedIn: boolean }> = ({ loggedIn }) => {
   if (!loggedIn) return <></>;
   return (
     <button className="w-32 my-auto text-black lg:hover:bg-white lg:hover:cursor-pointer ">
@@ -13,3 +15,5 @@ export const AddLink: React.FC<{loggedIn: boolean}> = ({loggedIn}) => {
     </button>
   );
 };
+
+export default AddLink;

@@ -1,4 +1,4 @@
-import { AddLink } from "./AddLink";
+import AddLink from "./AddLink";
 import ProjectLink from "./ProjectLink";
 import { ProjectInt } from "./ProjectList";
 

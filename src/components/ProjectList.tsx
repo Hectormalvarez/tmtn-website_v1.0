@@ -1,15 +1,17 @@
 import React, { useState } from "react";
-import { AddProjectButton } from "./AddProjectButton";
+import AddProjectButton from "./AddProjectButton";
 import Project from "./Project";
 
 export interface ProjectInt {
   name: string;
   description: string;
   techstack: string;
-  links?: {
-    name: string;
-    url: string;
-  }[] | undefined;
+  links?:
+    | {
+        name: string;
+        url: string;
+      }[]
+    | undefined;
 }
 
 const projects: ProjectInt[] = [
@@ -76,7 +78,7 @@ const projects: ProjectInt[] = [
   },
 ];
 
-const ProjectCatalog = () => {
+const ProjectList = () => {
   const [loggedIn, setLoggedIn] = useState(true);
 
   return (
@@ -92,5 +94,4 @@ const ProjectCatalog = () => {
   );
 };
 
-export default ProjectCatalog;
-
+export default ProjectList;

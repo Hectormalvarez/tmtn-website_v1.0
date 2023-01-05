@@ -1,6 +1,6 @@
-export const AddProjectButton: React.FC<{ loggedIn: boolean }> = ({
-  loggedIn,
-}) => {
+import React from "react";
+
+const AddProjectButton: React.FC<{ loggedIn: boolean }> = ({ loggedIn }) => {
   if (!loggedIn) return <></>;
   return (
     <button className="flex border-2 p-2 border-gray-900 hover:bg-gray-900 hover:text-white hover:fill-white">
@@ -15,3 +15,5 @@ export const AddProjectButton: React.FC<{ loggedIn: boolean }> = ({
     </button>
   );
 };
+
+export default AddProjectButton;
