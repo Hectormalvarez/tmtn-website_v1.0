@@ -1,8 +1,14 @@
-import React from "react";
-import { Outlet } from 'react-router-dom';
+import React from 'react'
+
+import { AdminProvider } from './context/AdminContext'
+import Home from './components/Home'
 
 function App() {
-  return <Outlet />;
+  return (
+    <AdminProvider>
+      <Home />
+    </AdminProvider>
+  )
 }
 
-export default App;
+export default App
