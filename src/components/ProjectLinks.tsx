@@ -1,34 +1,37 @@
-import AddLink from "./AddLink";
-import ProjectLink from "./ProjectLink";
-import { ProjectInt } from "./ProjectList";
+import React from 'react'
+import AddLink from './AddLink'
+import ProjectLink from './ProjectLink'
+import { ProjectInt } from './ProjectList'
 
-export const ProjectLinks: React.FC<{
-  project: ProjectInt;
-  loggedIn: boolean;
-}> = ({ project, loggedIn }: any) => {
+const ProjectLinks: React.FC<{
+  project: ProjectInt
+  loggedIn: boolean
+}> = ({ project, loggedIn }) => {
   if (loggedIn)
     return (
-      <div className="bg-gray-200 flex flex-row-reverse justify-around m-4">
-        <figure className="w-32 my-auto py-2 lg:hover:bg-white lg:hover:cursor-pointer ">
+      <div className='m-2 flex flex-row-reverse justify-around bg-gray-200 p-2'>
+        <figure className='my-auto w-32 py-2 lg:hover:cursor-pointer lg:hover:bg-white '>
           <AddLink loggedIn={loggedIn} />
         </figure>
-        {project.links?.map((link: any) => {
-          return <ProjectLink link={link} />;
+        {project.links?.map((link) => {
+          return <ProjectLink link={link} key={link.name} />
         })}
       </div>
-    );
+    )
 
   return (
-    <div className="bg-gray-200 flex flex-row-reverse justify-around m-4">
+    <div className='m-2 flex flex-row-reverse justify-around bg-gray-200  p-2'>
       {project.links ? (
-        project.links?.map((link: any) => {
-          return <ProjectLink link={link} />;
+        project.links?.map((link) => {
+          return <ProjectLink link={link} key={link.name} />
         })
       ) : (
-        <p className="p-4 lg:p-16 text-lg lg:text-2xl uppercase text-black font-bold">
+        <p className='p-4 text-lg font-bold uppercase text-black lg:p-12 lg:text-2xl'>
           links coming soon!
         </p>
       )}
     </div>
-  );
-};
+  )
+}
+
+export default ProjectLinks

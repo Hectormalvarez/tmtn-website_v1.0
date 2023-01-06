@@ -20,7 +20,7 @@ export const onCreateTMTNProject = /* GraphQL */ `
       owner
     }
   }
-`;
+`
 export const onUpdateTMTNProject = /* GraphQL */ `
   subscription OnUpdateTMTNProject(
     $filter: ModelSubscriptionTMTNProjectFilterInput
@@ -39,7 +39,7 @@ export const onUpdateTMTNProject = /* GraphQL */ `
       owner
     }
   }
-`;
+`
 export const onDeleteTMTNProject = /* GraphQL */ `
   subscription OnDeleteTMTNProject(
     $filter: ModelSubscriptionTMTNProjectFilterInput
@@ -58,7 +58,7 @@ export const onDeleteTMTNProject = /* GraphQL */ `
       owner
     }
   }
-`;
+`
 export const onCreateTMTNProjectLink = /* GraphQL */ `
   subscription OnCreateTMTNProjectLink(
     $filter: ModelSubscriptionTMTNProjectLinkFilterInput
@@ -77,7 +77,7 @@ export const onCreateTMTNProjectLink = /* GraphQL */ `
       owner
     }
   }
-`;
+`
 export const onUpdateTMTNProjectLink = /* GraphQL */ `
   subscription OnUpdateTMTNProjectLink(
     $filter: ModelSubscriptionTMTNProjectLinkFilterInput
@@ -96,7 +96,7 @@ export const onUpdateTMTNProjectLink = /* GraphQL */ `
       owner
     }
   }
-`;
+`
 export const onDeleteTMTNProjectLink = /* GraphQL */ `
   subscription OnDeleteTMTNProjectLink(
     $filter: ModelSubscriptionTMTNProjectLinkFilterInput
@@ -115,7 +115,7 @@ export const onDeleteTMTNProjectLink = /* GraphQL */ `
       owner
     }
   }
-`;
+`
 export const onCreateProjectLinks = /* GraphQL */ `
   subscription OnCreateProjectLinks(
     $filter: ModelSubscriptionProjectLinksFilterInput
@@ -148,7 +148,7 @@ export const onCreateProjectLinks = /* GraphQL */ `
       owner
     }
   }
-`;
+`
 export const onUpdateProjectLinks = /* GraphQL */ `
   subscription OnUpdateProjectLinks(
     $filter: ModelSubscriptionProjectLinksFilterInput
@@ -181,7 +181,7 @@ export const onUpdateProjectLinks = /* GraphQL */ `
       owner
     }
   }
-`;
+`
 export const onDeleteProjectLinks = /* GraphQL */ `
   subscription OnDeleteProjectLinks(
     $filter: ModelSubscriptionProjectLinksFilterInput
@@ -214,4 +214,4 @@ export const onDeleteProjectLinks = /* GraphQL */ `
       owner
     }
   }
-`;
+`
