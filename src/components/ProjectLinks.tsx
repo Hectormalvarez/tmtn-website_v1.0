@@ -1,5 +1,5 @@
 import React from 'react'
-import AddLink from './AddLink'
+import AddLink from './AddLinkButton'
 import ProjectLink from './ProjectLink'
 import { ProjectInt } from '../context/AdminContext'
 
