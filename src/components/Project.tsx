@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { ProjectInt } from './ProjectList'
+import { ProjectInt } from '../context/AdminContext'
 import ProjectLinks from './ProjectLinks'
 
 interface ProjectProps {

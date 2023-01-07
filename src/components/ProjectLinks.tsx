@@ -1,7 +1,7 @@
 import React from 'react'
 import AddLink from './AddLink'
 import ProjectLink from './ProjectLink'
-import { ProjectInt } from './ProjectList'
+import { ProjectInt } from '../context/AdminContext'
 
 const ProjectLinks: React.FC<{
   project: ProjectInt
