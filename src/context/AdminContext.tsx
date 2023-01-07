@@ -17,16 +17,16 @@ const projects: ProjectInt[] = [
     name: 'taylormadetech.net',
     description: 'company website',
     techstack: 'javascript (react), hosted on AWS with Amplify',
-    links: [
-      {
-        name: 'github',
-        url: 'https://github.com',
-      },
-      {
-        name: 'website',
-        url: 'https://www.taylormadetech.net',
-      },
-    ],
+    // links: [
+    //   {
+    //     name: 'github',
+    //     url: 'https://github.com',
+    //   },
+    //   {
+    //     name: 'website',
+    //     url: 'https://www.taylormadetech.net',
+    //   },
+    // ],
   },
   // {
   //   name: "secrets.taylormadetech.net",
@@ -80,18 +80,22 @@ const AdminContext = React.createContext({
   loggedIn: true,
   addingProject: false,
   projectData: projects,
-  addingProjectHandler: () => {
-    // handles adding project state - toggles on\off
-  },
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  handleProjectData: (newProject: ProjectInt) => {
-    // add project
+  addingLink: false,
+  logoutHandler: () => {
+    // logging out
   },
   loginHandler: () => {
-    // handles logging in
+    // logging in
   },
-  logoutHandler: () => {
-    // handles logging out
+  addingProjectHandler: () => {
+    // toggles addingProject state on\off
+  },
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  projectDataHandler: (newProject: ProjectInt) => {
+    // adds project to projectdata
+  },
+  addingLinkHandler: () => {
+    // toggles addingLinK state on\off
   },
 })
 
@@ -99,9 +103,11 @@ export const AdminProvider = (props: { children?: React.ReactNode }) => {
   const [loggedIn, setLoggedIn] = useState(false)
   const [addingProject, setAddingProject] = useState(false)
   const [projectData, setProjectData] = useState(projects)
+  const [addingLink, setAddingLink] = useState(false)
 
   const logoutHandler = () => {
-    if (addingProject) setAddingProject(false)
+    if (addingProject) addingProjectHandler()
+    if (addingLink) addingLinkHandler()
     return setLoggedIn(false)
   }
 
@@ -113,19 +119,24 @@ export const AdminProvider = (props: { children?: React.ReactNode }) => {
     return setAddingProject(!addingProject)
   }
 
-  const handleProjectData = (newProject: ProjectInt) => {
-    const newProjectData = [newProject, ...projectData]
-    return setProjectData(newProjectData)
+  const projectDataHandler = (newProject: ProjectInt) => {
+    return setProjectData([newProject, ...projectData])
+  }
+
+  const addingLinkHandler = () => {
+    return setAddingLink(!addingLink)
   }
 
   const contextValue = {
     loggedIn,
     addingProject,
     projectData,
-    handleProjectData,
-    loginHandler,
+    addingLink,
     logoutHandler,
+    loginHandler,
     addingProjectHandler,
+    projectDataHandler,
+    addingLinkHandler
   }
   return <AdminContext.Provider value={contextValue}>{props.children}</AdminContext.Provider>
 }

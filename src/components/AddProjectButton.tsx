@@ -1,8 +1,8 @@
 import React from 'react'
 import { useAdmin } from '../context/AdminContext'
 
-const AddProjectButton: React.FC<{ loggedIn: boolean }> = ({ loggedIn }) => {
-  const { addingProjectHandler, addingProject } = useAdmin()
+const AddProjectButton = () => {
+  const { addingProjectHandler, addingProject, loggedIn } = useAdmin()
   if (!loggedIn) return <></>
   if (loggedIn && addingProject)
     return (

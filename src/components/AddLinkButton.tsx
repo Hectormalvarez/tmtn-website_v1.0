@@ -1,9 +1,17 @@
 import React from 'react'
 
-const AddLink: React.FC<{ loggedIn: boolean }> = ({ loggedIn }) => {
+import { useAdmin } from '../context/AdminContext'
+
+const AddLink = () => {
+  const { addingLinkHandler, loggedIn } = useAdmin()
+
   if (!loggedIn) return <></>
+  
   return (
-    <div className='text-center text-black lg:hover:cursor-pointer lg:hover:bg-white'>
+    <div
+      className='text-center text-black lg:hover:cursor-pointer lg:hover:bg-white'
+      onClick={() => addingLinkHandler()}
+    >
       <svg
         className='mx-auto w-8 lg:w-16'
         viewBox='0 0 1024 1024'
