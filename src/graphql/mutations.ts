@@ -20,7 +20,7 @@ export const createTMTNProject = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const updateTMTNProject = /* GraphQL */ `
   mutation UpdateTMTNProject(
     $input: UpdateTMTNProjectInput!
@@ -39,7 +39,7 @@ export const updateTMTNProject = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const deleteTMTNProject = /* GraphQL */ `
   mutation DeleteTMTNProject(
     $input: DeleteTMTNProjectInput!
@@ -58,7 +58,7 @@ export const deleteTMTNProject = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const createTMTNProjectLink = /* GraphQL */ `
   mutation CreateTMTNProjectLink(
     $input: CreateTMTNProjectLinkInput!
@@ -77,7 +77,7 @@ export const createTMTNProjectLink = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const updateTMTNProjectLink = /* GraphQL */ `
   mutation UpdateTMTNProjectLink(
     $input: UpdateTMTNProjectLinkInput!
@@ -96,7 +96,7 @@ export const updateTMTNProjectLink = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const deleteTMTNProjectLink = /* GraphQL */ `
   mutation DeleteTMTNProjectLink(
     $input: DeleteTMTNProjectLinkInput!
@@ -115,7 +115,7 @@ export const deleteTMTNProjectLink = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const createProjectLinks = /* GraphQL */ `
   mutation CreateProjectLinks(
     $input: CreateProjectLinksInput!
@@ -148,7 +148,7 @@ export const createProjectLinks = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const updateProjectLinks = /* GraphQL */ `
   mutation UpdateProjectLinks(
     $input: UpdateProjectLinksInput!
@@ -181,7 +181,7 @@ export const updateProjectLinks = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const deleteProjectLinks = /* GraphQL */ `
   mutation DeleteProjectLinks(
     $input: DeleteProjectLinksInput!
@@ -214,4 +214,4 @@ export const deleteProjectLinks = /* GraphQL */ `
       owner
     }
   }
-`
+`;

@@ -1,4 +1,7 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { API, Hub } from 'aws-amplify'
+import { listTMTNProjects } from '../graphql/queries'
+import { createTMTNProject } from "../graphql/mutations";
 
 export interface ProjectInt {
   name: string
@@ -12,80 +15,42 @@ export interface ProjectInt {
     | undefined
 }
 
-const projects: ProjectInt[] = [
+const initialProjectState: ProjectInt[] = [
   {
-    name: 'taylormadetech.net',
-    description: 'company website',
-    techstack: 'javascript (react), hosted on AWS with Amplify',
-    // links: [
-    //   {
-    //     name: 'github',
-    //     url: 'https://github.com',
-    //   },
-    //   {
-    //     name: 'website',
-    //     url: 'https://www.taylormadetech.net',
-    //   },
-    // ],
+    name: 'Loading...',
+    description: 'Loading...',
+    techstack: 'Loading...',
+    links: [
+      {
+        name: 'github',
+        url: 'https://github.com',
+      },
+      {
+        name: 'website',
+        url: 'https://www.taylormadetech.net',
+      },
+      {
+        name: 'figma',
+        url: 'https://www.figma.com',
+      },
+    ],
   },
-  // {
-  //   name: "secrets.taylormadetech.net",
-  //   description: "secret sharing website",
-  //   techstack: "javascript (react), hosted on AWS with Amplify",
-  //   links: [
-  //     {
-  //       name: "github",
-  //       url: "https://github.com",
-  //     },
-  //     {
-  //       name: "figma",
-  //       url: "figma.com",
-  //     },
-  //     {
-  //       name: "website",
-  //       url: "https://secrets.taylormadetech.net",
-  //     },
-  //   ],
-  // },
-  // {
-  //   name: "mgdrywall-usa.com",
-  //   description: "MG Drywall U.S.A company website",
-  //   techstack: "javascript (next.js), hosted on AWS with Amplify",
-  // },
-  // {
-  //   name: "discord-bot",
-  //   description: "discord bot project",
-  //   techstack: "node.js",
-  //   links: [
-  //     {
-  //       name: "github",
-  //       url: "https://github.com",
-  //     },
-  //   ],
-  // },
-  // {
-  //   name: "myRides",
-  //   description: "an app to book your favorite Uber or Lyft driver",
-  //   techstack: "javascript (react) front end, python (django) backend",
-  //   links: [
-  //     {
-  //       name: "github",
-  //       url: "https://github.com",
-  //     },
-  //   ],
-  // },
 ]
 
 const AdminContext = React.createContext({
-  loggedIn: true,
+  loggedIn: false,
+  loggingIn: false,
   addingProject: false,
-  projectData: projects,
+  projectData: initialProjectState,
   addingLink: false,
   logoutHandler: () => {
     // logging out
   },
   loginHandler: () => {
     // logging in
+  },
+  loggingInHandler: () => {
+    // toggles logging in state on\off
   },
   addingProjectHandler: () => {
     // toggles addingProject state on\off
@@ -101,8 +66,9 @@ const AdminContext = React.createContext({
 
 export const AdminProvider = (props: { children?: React.ReactNode }) => {
   const [loggedIn, setLoggedIn] = useState(false)
+  const [loggingIn, setLoggingIn] = useState(false)
   const [addingProject, setAddingProject] = useState(false)
-  const [projectData, setProjectData] = useState(projects)
+  const [projectData, setProjectData] = useState(initialProjectState)
   const [addingLink, setAddingLink] = useState(false)
 
   const logoutHandler = () => {
@@ -113,6 +79,10 @@ export const AdminProvider = (props: { children?: React.ReactNode }) => {
 
   const loginHandler = () => {
     return setLoggedIn(true)
+  }
+
+  const loggingInHandler = () => {
+    return setLoggingIn(!loggingIn)
   }
 
   const addingProjectHandler = () => {
@@ -127,17 +97,52 @@ export const AdminProvider = (props: { children?: React.ReactNode }) => {
     return setAddingLink(!addingLink)
   }
 
+  async function fetchProjects() {
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const projectData: any = await API.graphql({ query: listTMTNProjects, authMode: 'API_KEY' })
+      const projects = projectData.data.listTMTNProjects.items
+      setProjectData(projects)
+    } catch (err) {
+      console.log('error fetching todos')
+      console.log(err)
+    }
+  }
+  useEffect(() => {
+    fetchProjects()
+    Hub.listen('auth', (data) => {
+      switch (data.payload.event) {
+        case 'signIn':
+          loginHandler()
+          // console.log(data)
+          console.log('user signed in')
+          break
+        case 'signOut':
+          logoutHandler
+          // console.log(data)
+          console.log('user signed out')
+          break
+        case 'signIn_failure':
+          console.log('user sign in failed')
+          break
+      }
+    })
+  }, [])
+
   const contextValue = {
     loggedIn,
+    loggingIn,
     addingProject,
     projectData,
     addingLink,
     logoutHandler,
     loginHandler,
+    loggingInHandler,
     addingProjectHandler,
     projectDataHandler,
-    addingLinkHandler
+    addingLinkHandler,
   }
+
   return <AdminContext.Provider value={contextValue}>{props.children}</AdminContext.Provider>
 }
 

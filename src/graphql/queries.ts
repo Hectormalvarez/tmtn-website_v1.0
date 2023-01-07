@@ -17,9 +17,13 @@ export const getTMTNProject = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const listTMTNProjects = /* GraphQL */ `
-  query ListTMTNProjects($filter: ModelTMTNProjectFilterInput, $limit: Int, $nextToken: String) {
+  query ListTMTNProjects(
+    $filter: ModelTMTNProjectFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
     listTMTNProjects(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
@@ -33,7 +37,7 @@ export const listTMTNProjects = /* GraphQL */ `
       nextToken
     }
   }
-`
+`;
 export const getTMTNProjectLink = /* GraphQL */ `
   query GetTMTNProjectLink($id: ID!) {
     getTMTNProjectLink(id: $id) {
@@ -49,14 +53,18 @@ export const getTMTNProjectLink = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const listTMTNProjectLinks = /* GraphQL */ `
   query ListTMTNProjectLinks(
     $filter: ModelTMTNProjectLinkFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listTMTNProjectLinks(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listTMTNProjectLinks(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
       items {
         id
         name
@@ -69,7 +77,7 @@ export const listTMTNProjectLinks = /* GraphQL */ `
       nextToken
     }
   }
-`
+`;
 export const getProjectLinks = /* GraphQL */ `
   query GetProjectLinks($id: ID!) {
     getProjectLinks(id: $id) {
@@ -99,9 +107,13 @@ export const getProjectLinks = /* GraphQL */ `
       owner
     }
   }
-`
+`;
 export const listProjectLinks = /* GraphQL */ `
-  query ListProjectLinks($filter: ModelProjectLinksFilterInput, $limit: Int, $nextToken: String) {
+  query ListProjectLinks(
+    $filter: ModelProjectLinksFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
     listProjectLinks(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
@@ -114,7 +126,7 @@ export const listProjectLinks = /* GraphQL */ `
       nextToken
     }
   }
-`
+`;
 export const projectLinksByTMTNProjectId = /* GraphQL */ `
   query ProjectLinksByTMTNProjectId(
     $tMTNProjectId: ID!
@@ -141,7 +153,7 @@ export const projectLinksByTMTNProjectId = /* GraphQL */ `
       nextToken
     }
   }
-`
+`;
 export const projectLinksByTMTNProjectLinkId = /* GraphQL */ `
   query ProjectLinksByTMTNProjectLinkId(
     $tMTNProjectLinkId: ID!
@@ -168,4 +180,4 @@ export const projectLinksByTMTNProjectLinkId = /* GraphQL */ `
       nextToken
     }
   }
-`
+`;

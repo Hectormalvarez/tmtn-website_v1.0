@@ -4,7 +4,7 @@ enum LinkType {
   WEBSITE
 }
 
-type TMTNProject @model @auth(rules: [{allow: public, operations: [read]}, {allow: owner}]) {
+type TMTNProject @model @auth(rules: [{allow: public, provider: apiKey, operations: [read]}, {allow: owner}]) {
   id: ID!
   name: String!
   description: String!
@@ -12,7 +12,7 @@ type TMTNProject @model @auth(rules: [{allow: public, operations: [read]}, {allo
   links: [TMTNProjectLink] @manyToMany(relationName: "ProjectLinks")
 }
 
-type TMTNProjectLink @model @auth(rules: [{allow: public, operations: [read]}, {allow: owner}]) {
+type TMTNProjectLink @model @auth(rules: [{allow: public, provider: apiKey, operations: [read]}, {allow: owner}]) {
   id: ID!
   name: String!
   url: String!
