@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { API, Hub } from 'aws-amplify'
+import { API, Auth, Hub } from 'aws-amplify'
 import { listTMTNProjects } from '../graphql/queries'
-import { createTMTNProject } from "../graphql/mutations";
+import { createTMTNProject } from '../graphql/mutations'
 
 export interface ProjectInt {
   name: string
@@ -89,8 +89,17 @@ export const AdminProvider = (props: { children?: React.ReactNode }) => {
     return setAddingProject(!addingProject)
   }
 
+  async function createProject(projectData: ProjectInt) {
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      await API.graphql({ query: createTMTNProject, variables: { input: projectData } })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const projectDataHandler = (newProject: ProjectInt) => {
-    return setProjectData([newProject, ...projectData])
+    return createProject(newProject)
   }
 
   const addingLinkHandler = () => {
@@ -108,8 +117,13 @@ export const AdminProvider = (props: { children?: React.ReactNode }) => {
       console.log(err)
     }
   }
+
   useEffect(() => {
     fetchProjects()
+    Auth.currentAuthenticatedUser()
+      .then((user) => {
+        if (user) loginHandler()
+      })
     Hub.listen('auth', (data) => {
       switch (data.payload.event) {
         case 'signIn':
@@ -118,7 +132,7 @@ export const AdminProvider = (props: { children?: React.ReactNode }) => {
           console.log('user signed in')
           break
         case 'signOut':
-          logoutHandler
+          logoutHandler()
           // console.log(data)
           console.log('user signed out')
           break
