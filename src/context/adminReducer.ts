@@ -4,9 +4,7 @@ import { initialAdminState } from './AdminContext'
 export enum AdminActionType {
   LOGGEDIN = 'loggedIn',
   ADDING_PROJECT = 'addingProject',
-  ADD_PROJECT = 'addProject',
   ADDING_LINK = 'addingLink',
-  ADD_LINK = 'addLink',
 }
 
 export type adminAction = { type: AdminActionType; payload: boolean }
