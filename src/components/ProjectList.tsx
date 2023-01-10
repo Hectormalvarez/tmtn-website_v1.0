@@ -6,14 +6,14 @@ import Project from './Project'
 
 
 const ProjectList = () => {
-  const { addingProject, projectData } = useAdmin()
+  const { adminState, projectData } = useAdmin()
   return (
     <section>
       <div className='font-mplus mx-4 flex justify-between font-bold lg:text-2xl'>
         <h2 className='p-2'>Project Catalog</h2>
         <AddProjectButton  />
       </div>
-      {addingProject && <AddProject />}
+      {adminState.addingProject && <AddProject />}
       {projectData.map((project) => {
         return <Project key={project.name} project={project} />
       })}

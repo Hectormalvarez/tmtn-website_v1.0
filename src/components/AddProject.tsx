@@ -1,12 +1,9 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 
-import { useAdmin } from '../context/AdminContext'
 import { ProjectInt } from '../context/AdminContext'
 
 const AddProject = () => {
-  const { projectDataHandler, addingProjectHandler } = useAdmin()
-
   const {
     register,
     handleSubmit,
@@ -16,8 +13,6 @@ const AddProject = () => {
 
   const onSubmit = handleSubmit((data) => {
     console.log(data)
-    projectDataHandler(data)
-    addingProjectHandler()
     reset()
   })
 

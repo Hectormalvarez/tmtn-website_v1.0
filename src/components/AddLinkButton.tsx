@@ -1,16 +1,18 @@
 import React from 'react'
 
 import { useAdmin } from '../context/AdminContext'
+import { AdminActionType } from '../context/adminReducer'
 
 const AddLink = () => {
-  const { addingLinkHandler, loggedIn } = useAdmin()
+  const { adminState, dispatch } = useAdmin()
 
-  if (!loggedIn) return <></>
-  
+  if (!adminState.loggedIn || adminState.addingLink) return <></>
   return (
     <div
       className='text-center text-black lg:hover:cursor-pointer lg:hover:bg-white'
-      onClick={() => addingLinkHandler()}
+      onClick={() =>
+        dispatch({ type: AdminActionType.ADDING_LINK, payload: !adminState.addingLink })
+      }
     >
       <svg
         className='mx-auto w-8 lg:w-16'

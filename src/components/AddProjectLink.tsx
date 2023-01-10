@@ -2,9 +2,11 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 
 import { ProjectInt, useAdmin } from '../context/AdminContext'
+import { AdminActionType } from '../context/adminReducer'
+import { getPossibleProjectLinks } from '../service/projectService'
 
-const AddProjectLink: React.FC<{ project: ProjectInt }> = ({ project }) => {
-  const { addingLinkHandler } = useAdmin()
+const AddProjectLink: React.FC<{ project: ProjectInt, linkOptions: string[] }> = ({ project, linkOptions }) => {
+  const { dispatch } = useAdmin()
 
   const {
     register,
@@ -19,24 +21,11 @@ const AddProjectLink: React.FC<{ project: ProjectInt }> = ({ project }) => {
     } else {
       project.links = [{ name: data.name.toLowerCase(), url: data.url }]
     }
+    dispatch({ type: AdminActionType.ADDING_LINK, payload: false })
     reset()
-    addingLinkHandler()
   })
 
-  const getAvailableProjectLinks = (project: ProjectInt) => {
-    const linkOptions = ['WEBSITE', 'GITHUB', 'FIGMA']
-    // determine links that can be added
-    // check links project contains and deduce from possible options
-    if (project.links) {
-      const linkNames = project.links.map((projectlink) => projectlink.name.toLocaleUpperCase())
-      const availableLinkOptions = linkOptions.filter((element) => !linkNames.includes(element))
-      return availableLinkOptions
-    } else {
-      return linkOptions
-    }
-  }
-  const availableProjectLinks = getAvailableProjectLinks(project)
-  if (!availableProjectLinks) return <></>
+  const availableProjectLinks = getPossibleProjectLinks(project, linkOptions)
   const linkSelectOptions = availableProjectLinks.map((availableLink) => (
     <option key={`${availableLink}`} value={`${availableLink}`}>
       {availableLink.toLocaleUpperCase()}
@@ -44,7 +33,6 @@ const AddProjectLink: React.FC<{ project: ProjectInt }> = ({ project }) => {
   ))
 
   return (
-    <div>
       <form onSubmit={onSubmit} className='flex flex-col border-2 border-gray-800 p-2  text-black'>
         <h3 className='font-bold capitalize text-gray-800'>add a new project link</h3>
         <label>Name</label>
@@ -55,11 +43,16 @@ const AddProjectLink: React.FC<{ project: ProjectInt }> = ({ project }) => {
         <label>URL</label>
         <input className='border-2 border-gray-800 p-2' {...register('url', { required: true })} />
         {errors.url && 'URL Required!'}
-        <button className='my-2 border-2 border-gray-900 bg-gray-800 p-2 text-gray-50 hover:bg-gray-200 hover:fill-white hover:text-black'>
+        <button className='my-2 border-2 border-gray-900 bg-gray-200 p-2 text-black hover:bg-gray-900  hover:text-white'>
           submit
         </button>
+        <button
+          className='border-2 border-gray-900 bg-gray-200 p-2 text-black hover:bg-red-200'
+          onClick={() => dispatch({ type: AdminActionType.ADDING_LINK, payload: false })}
+        >
+          cancel
+        </button>
       </form>
-    </div>
   )
 }
 
