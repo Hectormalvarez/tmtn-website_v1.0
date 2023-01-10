@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAdmin } from '../context/AdminContext'
-import AddProject from './AddProject'
+import AddProject from './AddProjectForm'
 import AddProjectButton from './AddProjectButton'
 import Project from './Project'
 
