@@ -1,7 +1,8 @@
 import { API } from 'aws-amplify'
 import { IProject } from '../hooks/AdminContext'
-import { createTMTNProject } from '../graphql/mutations'
+import { createTMTNProject, createTMTNProjectLink, createProjectLinks } from '../graphql/mutations'
 import { listTMTNProjects } from '../graphql/queries'
+import { ProjectLinks } from '../API'
 
 export async function fetchProjects() {
   try {
@@ -15,7 +16,46 @@ export async function fetchProjects() {
 }
 
 export async function createProject(projectData: IProject) {
-  return await API.graphql({ query: createTMTNProject, variables: { input: projectData, authMode: 'AWS_IAM' } })
+  return await API.graphql({
+    query: createTMTNProject,
+    variables: { input: projectData, authMode: 'AWS_IAM' },
+  })
+}
+
+export async function createProjectLink(projectLink: { name: string; url: string }) {
+  return await API.graphql({
+    query: createTMTNProjectLink,
+    variables: { input: projectLink, authMode: 'AWS_IAM' },
+  })
+}
+
+export async function addLinktoProject(
+  project: IProject,
+  projectLink: { name: string; url: string },
+) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let createdTMTNProjectLinkData: any
+  let createdProjectLinksData: any
+  try {
+    createdTMTNProjectLinkData = await API.graphql({
+      query: createTMTNProjectLink,
+      variables: { input: projectLink, authMode: 'AWS_IAM' },
+    })
+    if (!createdTMTNProjectLinkData) throw new Error('unable to create link!')
+    createdProjectLinksData = await API.graphql({
+      query: createProjectLinks,
+      variables: {
+        input: {
+          tMTNProjectId: project.id,
+          tMTNProjectLinkId: createdTMTNProjectLinkData.data.createTMTNProjectLink.id,
+        },
+      },
+    })
+    if (createdProjectLinksData) return createdProjectLinksData.data.createProjectLinks
+    throw new Error("Error adding project link")
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 export const getPossibleProjectLinks = (project: IProject, possibleLinkOptions: string[]) => {

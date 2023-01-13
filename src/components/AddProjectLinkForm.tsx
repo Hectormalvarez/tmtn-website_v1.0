@@ -3,9 +3,12 @@ import { useForm } from 'react-hook-form'
 
 import { IProject, useAdmin } from '../hooks/AdminContext'
 import { EAdminAction } from '../hooks/adminReducer'
-import { getPossibleProjectLinks } from '../service/projectService'
+import { getPossibleProjectLinks, addLinktoProject } from '../service/projectService'
 
-const AddProjectLink: React.FC<{ project: IProject, linkOptions: string[] }> = ({ project, linkOptions }) => {
+const AddProjectLink: React.FC<{ project: IProject; linkOptions: string[] }> = ({
+  project,
+  linkOptions,
+}) => {
   const { dispatch } = useAdmin()
 
   const {
@@ -16,10 +19,26 @@ const AddProjectLink: React.FC<{ project: IProject, linkOptions: string[] }> = (
   } = useForm<{ name: string; url: string }>()
 
   const onSubmit = handleSubmit((data) => {
+    // extract new link from form submission
+    const newLink = { name: data.name.toLowerCase(), url: data.url }
+
+    // original links container for roll back
+    let originalLinks
+
     if (project.links) {
-      project.links.push({ name: data.name.toLowerCase(), url: data.url })
+      // save project links
+      originalLinks = [...project.links]
+      project.links.push(newLink)
     } else {
-      project.links = [{ name: data.name.toLowerCase(), url: data.url }]
+      project.links = [newLink]
+    }
+    try {
+      addLinktoProject(project, newLink).then((linkAddedData) => {
+        console.log('link added', linkAddedData)
+      })
+    } catch (error) {
+      project.links.pop()
+      console.log('error with API call', error)
     }
     dispatch({ type: EAdminAction.ADDING_LINK, payload: false })
     reset()
@@ -33,26 +52,26 @@ const AddProjectLink: React.FC<{ project: IProject, linkOptions: string[] }> = (
   ))
 
   return (
-      <form onSubmit={onSubmit} className='flex flex-col border-2 border-gray-800 p-2  text-black'>
-        <h3 className='font-bold capitalize text-gray-800'>add a new project link</h3>
-        <label>Name</label>
-        <select className='border-2 border-gray-800 p-2' {...register('name', { required: true })}>
-          {linkSelectOptions}
-        </select>
-        {errors.name && 'Name Required!'}
-        <label>URL</label>
-        <input className='border-2 border-gray-800 p-2' {...register('url', { required: true })} />
-        {errors.url && 'URL Required!'}
-        <button className='my-2 border-2 border-gray-900 bg-gray-200 p-2 text-black hover:bg-gray-900  hover:text-white'>
-          submit
-        </button>
-        <button
-          className='border-2 border-gray-900 bg-gray-200 p-2 text-black hover:bg-red-200'
-          onClick={() => dispatch({ type: EAdminAction.ADDING_LINK, projectID: undefined })}
-        >
-          cancel
-        </button>
-      </form>
+    <form onSubmit={onSubmit} className='flex flex-col border-2 border-gray-800 p-2  text-black'>
+      <h3 className='font-bold capitalize text-gray-800'>add a new project link</h3>
+      <label>Name</label>
+      <select className='border-2 border-gray-800 p-2' {...register('name', { required: true })}>
+        {linkSelectOptions}
+      </select>
+      {errors.name && 'Name Required!'}
+      <label>URL</label>
+      <input className='border-2 border-gray-800 p-2' {...register('url', { required: true })} />
+      {errors.url && 'URL Required!'}
+      <button className='my-2 border-2 border-gray-900 bg-gray-200 p-2 text-black hover:bg-gray-900  hover:text-white'>
+        submit
+      </button>
+      <button
+        className='border-2 border-gray-900 bg-gray-200 p-2 text-black hover:bg-red-200'
+        onClick={() => dispatch({ type: EAdminAction.ADDING_LINK, projectID: undefined })}
+      >
+        cancel
+      </button>
+    </form>
   )
 }
 
