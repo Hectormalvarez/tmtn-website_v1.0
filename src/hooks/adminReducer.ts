@@ -7,7 +7,7 @@ export enum EAdminAction {
   ADDING_LINK = 'addingLink',
 }
 
-export type TadminAction = { type: EAdminAction; payload: boolean }
+export type TadminAction = { type: EAdminAction; payload?: boolean; projectID?: string }
 
 export const adminReducer: Reducer<TadminState, TadminAction> = (
   adminState,
@@ -15,7 +15,7 @@ export const adminReducer: Reducer<TadminState, TadminAction> = (
 ) => {
   switch (action.type) {
     case EAdminAction.ADDING_LINK:
-      return { ...adminState, addingLink: action.payload }
+      return { ...adminState, addingLinkProjectID: action.projectID }
     case EAdminAction.ADDING_PROJECT:
       return { ...adminState, addingProject: action.payload }
     case EAdminAction.LOGGEDIN:

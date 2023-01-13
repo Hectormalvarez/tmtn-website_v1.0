@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAdmin } from '../hooks/AdminContext'
-import AddProject from './AddProjectForm'
+import AddProjectForm from './AddProjectForm'
 import AddProjectButton from './AddProjectButton'
 import Project from './Project'
 
@@ -12,7 +12,7 @@ const ProjectList = () => {
         <h2 className='p-2'>Project Catalog</h2>
         <AddProjectButton />
       </div>
-      {adminState.loggedIn && adminState.addingProject && <AddProject />}
+      {adminState.loggedIn && adminState.addingProject && <AddProjectForm />}
       {projectData.map((project) => {
         return <Project key={project.name} project={project} />
       })}

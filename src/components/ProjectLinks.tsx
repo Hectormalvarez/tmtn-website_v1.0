@@ -5,12 +5,15 @@ import AddProjectLinkForm from './AddProjectLinkForm'
 import ProjectLink from './ProjectLink'
 import { IProject } from '../hooks/AdminContext'
 import { getPossibleProjectLinks } from '../service/projectService'
+import { EAdminAction } from '../hooks/adminReducer'
 
 const ProjectLinks: React.FC<{ project: IProject }> = ({ project }) => {
   const linkOptions = ['WEBSITE', 'GITHUB', 'FIGMA']
   const { adminState, dispatch } = useAdmin()
   const remaininglinks = getPossibleProjectLinks(project, linkOptions)
+  const showLinkForm = project.id === adminState.addingLinkProjectID
 
+  // show add link button
   if (adminState.loggedIn && remaininglinks.length !== 0) {
     return (
       <div className='m-2 flex flex-col bg-gray-200 p-2'>
@@ -18,7 +21,7 @@ const ProjectLinks: React.FC<{ project: IProject }> = ({ project }) => {
           <div
             className='text-center text-black lg:hover:cursor-pointer lg:hover:bg-white'
             onClick={() => {
-              console.log('hello')
+              dispatch({ type: EAdminAction.ADDING_LINK, projectID: project.id })
             }}
           >
             <svg
@@ -34,11 +37,12 @@ const ProjectLinks: React.FC<{ project: IProject }> = ({ project }) => {
             return <ProjectLink link={link} key={link.name} />
           })}
         </div>
-          <AddProjectLinkForm project={project} linkOptions={linkOptions} />
+       {showLinkForm && <AddProjectLinkForm project={project} linkOptions={linkOptions} />}
       </div>
     )
   }
 
+  // if not logged in
   return (
     <div className='m-2 flex flex-row-reverse justify-around bg-gray-200  p-2'>
       {project.links ? (

@@ -48,7 +48,7 @@ const AddProjectLink: React.FC<{ project: IProject, linkOptions: string[] }> = (
         </button>
         <button
           className='border-2 border-gray-900 bg-gray-200 p-2 text-black hover:bg-red-200'
-          onClick={() => dispatch({ type: EAdminAction.ADDING_LINK, payload: false })}
+          onClick={() => dispatch({ type: EAdminAction.ADDING_LINK, projectID: undefined })}
         >
           cancel
         </button>

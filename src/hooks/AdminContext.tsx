@@ -3,6 +3,7 @@ import { adminReducer, TadminAction } from './adminReducer'
 import { fetchProjects } from '../service/projectService'
 
 export interface IProject {
+  id: string
   name: string
   description: string
   techstack: string
@@ -16,6 +17,7 @@ export interface IProject {
 
 const initialProjectState: IProject[] = [
   {
+    id: "234",
     name: 'Loading...',
     description: 'Loading...',
     techstack: 'Loading...',
@@ -37,20 +39,20 @@ const initialProjectState: IProject[] = [
 ]
 
 export type TadminState = {
-  loggedIn: boolean
-  addingProject: boolean
-  addingLinkTo: 'github' | 'figma' | 'website' | null
+  loggedIn: boolean | undefined
+  addingProject: boolean | undefined
+  addingLinkProjectID: string | undefined | null
 }
 
 const initialAdminState: TadminState = {
   loggedIn: false,
   addingProject: false,
-  addingLinkTo: null,
+  addingLinkProjectID: null,
 }
 
 type TAdminContext = {
   adminState: TadminState
-  projectData: typeof initialProjectState
+  projectData: IProject[]
   dispatch: Dispatch<TadminAction>
 }
 
