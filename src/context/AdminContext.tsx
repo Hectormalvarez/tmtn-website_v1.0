@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useReducer, Dispatch, useState } from 'react'
-import { adminReducer, adminAction } from './adminReducer'
+import { adminReducer, TadminAction } from './adminReducer'
 import { fetchProjects } from '../service/projectService'
 
-export interface ProjectInt {
+export interface IProject {
   name: string
   description: string
   techstack: string
@@ -14,7 +14,7 @@ export interface ProjectInt {
     | undefined
 }
 
-const initialProjectState: ProjectInt[] = [
+const initialProjectState: IProject[] = [
   {
     name: 'Loading...',
     description: 'Loading...',
@@ -36,26 +36,32 @@ const initialProjectState: ProjectInt[] = [
   },
 ]
 
-export const initialAdminState = {
+export type TadminState = {
+  loggedIn: boolean
+  addingProject: boolean
+  addingLinkTo: 'github' | 'figma' | 'website' | null
+}
+
+const initialAdminState: TadminState = {
   loggedIn: false,
   addingProject: false,
-  addingLink: false,
+  addingLinkTo: null,
 }
 
-type AdminState = {
-  adminState: typeof initialAdminState
+type TAdminContext = {
+  adminState: TadminState
   projectData: typeof initialProjectState
-  dispatch: Dispatch<adminAction>
+  dispatch: Dispatch<TadminAction>
 }
 
-const AdminContext = React.createContext<AdminState | null>(null)
+const AdminContext = React.createContext<TAdminContext | null>(null)
 
 export const AdminProvider = (props: { children?: React.ReactNode }) => {
   const [adminState, dispatch] = useReducer(adminReducer, initialAdminState)
   const [projectData, setProjectData] = useState(initialProjectState)
 
   const loadData = async () => {
-    const loadedProjects: ProjectInt[] = await fetchProjects()
+    const loadedProjects: IProject[] = await fetchProjects()
     setProjectData(loadedProjects)
   }
 
@@ -68,7 +74,7 @@ export const AdminProvider = (props: { children?: React.ReactNode }) => {
       value={{
         adminState,
         dispatch,
-        projectData
+        projectData,
       }}
     >
       {props.children}

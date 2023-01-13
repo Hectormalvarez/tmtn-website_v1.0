@@ -1,11 +1,11 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 
-import { ProjectInt, useAdmin } from '../context/AdminContext'
-import { AdminActionType } from '../context/adminReducer'
+import { IProject, useAdmin } from '../context/AdminContext'
+import { EAdminAction } from '../context/adminReducer'
 import { getPossibleProjectLinks } from '../service/projectService'
 
-const AddProjectLink: React.FC<{ project: ProjectInt, linkOptions: string[] }> = ({ project, linkOptions }) => {
+const AddProjectLink: React.FC<{ project: IProject, linkOptions: string[] }> = ({ project, linkOptions }) => {
   const { dispatch } = useAdmin()
 
   const {
@@ -21,7 +21,7 @@ const AddProjectLink: React.FC<{ project: ProjectInt, linkOptions: string[] }> =
     } else {
       project.links = [{ name: data.name.toLowerCase(), url: data.url }]
     }
-    dispatch({ type: AdminActionType.ADDING_LINK, payload: false })
+    dispatch({ type: EAdminAction.ADDING_LINK, payload: false })
     reset()
   })
 
@@ -48,7 +48,7 @@ const AddProjectLink: React.FC<{ project: ProjectInt, linkOptions: string[] }> =
         </button>
         <button
           className='border-2 border-gray-900 bg-gray-200 p-2 text-black hover:bg-red-200'
-          onClick={() => dispatch({ type: AdminActionType.ADDING_LINK, payload: false })}
+          onClick={() => dispatch({ type: EAdminAction.ADDING_LINK, payload: false })}
         >
           cancel
         </button>

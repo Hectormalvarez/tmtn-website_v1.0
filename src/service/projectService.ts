@@ -1,5 +1,5 @@
 import { API } from 'aws-amplify'
-import { ProjectInt } from '../context/AdminContext'
+import { IProject } from '../context/AdminContext'
 import { createTMTNProject } from '../graphql/mutations'
 import { listTMTNProjects } from '../graphql/queries'
 
@@ -14,16 +14,11 @@ export async function fetchProjects() {
   }
 }
 
-export async function createProject(projectData: ProjectInt) {
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    await API.graphql({ query: createTMTNProject, variables: { input: projectData } })
-  } catch (error) {
-    console.log(error)
-  }
+export async function createProject(projectData: IProject) {
+  return await API.graphql({ query: createTMTNProject, variables: { input: projectData, authMode: 'AWS_IAM' } })
 }
 
-export const getPossibleProjectLinks = (project: ProjectInt, possibleLinkOptions: string[]) => {
+export const getPossibleProjectLinks = (project: IProject, possibleLinkOptions: string[]) => {
   // determine links that can be added
   // check links project contains and deduce from possible options
   if (project.links) {

@@ -1,10 +1,10 @@
 import React from 'react'
 
-import { ProjectInt } from '../context/AdminContext'
+import { IProject } from '../context/AdminContext'
 import ProjectLinks from './ProjectLinks'
 
 interface ProjectProps {
-  project: ProjectInt
+  project: IProject
   children?: React.ReactNode
 }
 

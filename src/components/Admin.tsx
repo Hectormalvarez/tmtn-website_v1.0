@@ -4,7 +4,7 @@ import { Auth, Hub } from 'aws-amplify'
 import '@aws-amplify/ui-react/styles.css'
 
 import { useAdmin } from '../context/AdminContext'
-import { AdminActionType } from '../context/adminReducer'
+import { EAdminAction } from '../context/adminReducer'
 
 const Admin = () => {
   const { dispatch } = useAdmin()
@@ -12,7 +12,7 @@ const Admin = () => {
   useEffect(() => {
     Auth.currentAuthenticatedUser()
       .then((user) => {
-        if (user) dispatch({ type: AdminActionType.LOGGEDIN, payload: true })
+        if (user) dispatch({ type: EAdminAction.LOGGEDIN, payload: true })
       })
       .catch((error) => console.log(error))
 
@@ -20,11 +20,11 @@ const Admin = () => {
       switch (data.payload.event) {
         case 'signIn':
           console.log('user signed in')
-          dispatch({ type: AdminActionType.LOGGEDIN, payload: true })
+          dispatch({ type: EAdminAction.LOGGEDIN, payload: true })
           break
         case 'signOut':
           console.log('user signed out')
-          dispatch({ type: AdminActionType.LOGGEDIN, payload: false })
+          dispatch({ type: EAdminAction.LOGGEDIN, payload: false })
           break
         case 'signIn_failure':
           console.log('user sign in failed')

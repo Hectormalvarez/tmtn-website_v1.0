@@ -1,13 +1,13 @@
 import React from 'react'
 
-interface ProjectLinkProps {
+interface IProjectLinkProps {
   link: {
     name: string
     url: string
   }
 }
 
-const ProjectLink: React.FC<ProjectLinkProps> = ({ link }) => {
+const ProjectLink: React.FC<IProjectLinkProps> = ({ link }) => {
   return (
     <figure className='my-auto w-32 py-2 lg:hover:cursor-pointer lg:hover:bg-white '>
       <a href={`${link.url}`} target='_blank' rel='noreferrer'>

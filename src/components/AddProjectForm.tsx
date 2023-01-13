@@ -1,19 +1,33 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 
-import { ProjectInt } from '../context/AdminContext'
+import { IProject } from '../context/AdminContext'
+import { createProject } from '../service/projectService'
+import { useAdmin } from '../context/AdminContext'
+import { EAdminAction } from '../context/adminReducer'
 
 const AddProject = () => {
+  const { projectData, dispatch } = useAdmin()
+
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<ProjectInt>()
+  } = useForm<IProject>()
 
   const onSubmit = handleSubmit((data) => {
-    console.log(data)
-    reset()
+    try {
+      dispatch({ type: EAdminAction.ADDING_PROJECT, payload: false })
+      projectData.push(data)
+      createProject(data)
+      console.log(data)
+      reset()
+    } catch (error) {
+      dispatch({ type: EAdminAction.ADDING_PROJECT, payload: true })
+      projectData.pop()
+      console.log(error)
+    }
   })
 
   return (
@@ -37,7 +51,7 @@ const AddProject = () => {
         {...register('techstack', { required: true })}
       />
       {errors.name && 'TechStack Required!'}
-      
+
       <button className='my-2 border-2 border-gray-900 bg-gray-800 p-2 text-gray-50 hover:bg-gray-200 hover:fill-white hover:text-white'>
         submit
       </button>
