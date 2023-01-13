@@ -1,6 +1,6 @@
 import React from 'react'
-import { useAdmin } from '../context/AdminContext'
-import { EAdminAction } from '../context/adminReducer'
+import { useAdmin } from '../hooks/AdminContext'
+import { EAdminAction } from '../hooks/adminReducer'
 
 const AddProjectButton = () => {
   const { adminState, dispatch } = useAdmin()

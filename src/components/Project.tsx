@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { IProject } from '../context/AdminContext'
+import { IProject } from '../hooks/AdminContext'
 import ProjectLinks from './ProjectLinks'
 
 interface ProjectProps {

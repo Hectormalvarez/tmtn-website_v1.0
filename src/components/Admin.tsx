@@ -3,8 +3,8 @@ import { Authenticator } from '@aws-amplify/ui-react'
 import { Auth, Hub } from 'aws-amplify'
 import '@aws-amplify/ui-react/styles.css'
 
-import { useAdmin } from '../context/AdminContext'
-import { EAdminAction } from '../context/adminReducer'
+import { useAdmin } from '../hooks/AdminContext'
+import { EAdminAction } from '../hooks/adminReducer'
 
 const Admin = () => {
   const { dispatch } = useAdmin()

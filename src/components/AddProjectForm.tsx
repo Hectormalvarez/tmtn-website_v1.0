@@ -1,10 +1,10 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 
-import { IProject } from '../context/AdminContext'
+import { IProject } from '../hooks/AdminContext'
 import { createProject } from '../service/projectService'
-import { useAdmin } from '../context/AdminContext'
-import { EAdminAction } from '../context/adminReducer'
+import { useAdmin } from '../hooks/AdminContext'
+import { EAdminAction } from '../hooks/adminReducer'
 
 const AddProject = () => {
   const { projectData, dispatch } = useAdmin()

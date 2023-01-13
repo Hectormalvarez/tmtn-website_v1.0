@@ -1,5 +1,5 @@
 import { API } from 'aws-amplify'
-import { IProject } from '../context/AdminContext'
+import { IProject } from '../hooks/AdminContext'
 import { createTMTNProject } from '../graphql/mutations'
 import { listTMTNProjects } from '../graphql/queries'
 

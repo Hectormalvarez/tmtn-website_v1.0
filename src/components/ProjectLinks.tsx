@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { useAdmin } from '../context/AdminContext'
+import { useAdmin } from '../hooks/AdminContext'
 import AddProjectLinkForm from './AddProjectLinkForm'
 import ProjectLink from './ProjectLink'
-import { IProject } from '../context/AdminContext'
+import { IProject } from '../hooks/AdminContext'
 import { getPossibleProjectLinks } from '../service/projectService'
 
 const ProjectLinks: React.FC<{ project: IProject }> = ({ project }) => {

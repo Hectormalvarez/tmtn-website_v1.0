@@ -1,5 +1,5 @@
 import React from 'react'
-import { useAdmin } from '../context/AdminContext'
+import { useAdmin } from '../hooks/AdminContext'
 import AddProject from './AddProjectForm'
 import AddProjectButton from './AddProjectButton'
 import Project from './Project'

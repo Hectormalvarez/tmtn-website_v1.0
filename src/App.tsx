@@ -1,7 +1,7 @@
 import React from 'react'
 import { Amplify } from 'aws-amplify'
 
-import { AdminProvider } from './context/AdminContext'
+import { AdminProvider } from './hooks/AdminContext'
 import Home from './components/Home'
 
 import awsExports from './aws-exports'

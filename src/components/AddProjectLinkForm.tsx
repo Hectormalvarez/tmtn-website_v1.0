@@ -1,8 +1,8 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 
-import { IProject, useAdmin } from '../context/AdminContext'
-import { EAdminAction } from '../context/adminReducer'
+import { IProject, useAdmin } from '../hooks/AdminContext'
+import { EAdminAction } from '../hooks/adminReducer'
 import { getPossibleProjectLinks } from '../service/projectService'
 
 const AddProjectLink: React.FC<{ project: IProject, linkOptions: string[] }> = ({ project, linkOptions }) => {
