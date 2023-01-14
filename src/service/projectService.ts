@@ -1,14 +1,48 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { API } from 'aws-amplify'
 import { IProject } from '../hooks/AdminContext'
 import { createTMTNProject, createTMTNProjectLink, createProjectLinks } from '../graphql/mutations'
-import { listTMTNProjects } from '../graphql/queries'
-import { ProjectLinks } from '../API'
+
+const customListTMTNProjects = /* GraphQL */ `
+  query CustomListTMTNProjects {
+    listTMTNProjects {
+      items {
+        links {
+          items {
+            tMTNProjectLink {
+              id
+              name
+              url
+            }
+          }
+        }
+        description
+        createdAt
+        id
+        name
+        techstack
+      }
+    }
+  }
+`
 
 export async function fetchProjects() {
+  let fetchedProjects
   try {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const projectData: any = await API.graphql({ query: listTMTNProjects, authMode: 'API_KEY' })
-    return projectData.data.listTMTNProjects.items
+    // graphql call to get projects
+    const projectData: any = await API.graphql({
+      query: customListTMTNProjects,
+      authMode: 'API_KEY',
+    })
+
+    // transform data to match IProject
+    fetchedProjects = projectData.data.listTMTNProjects.items.map((project: any) => {
+      project.links = project.links.items.map((projectLink: any) => {
+        return { name: projectLink.tMTNProjectLink.name, url: projectLink.tMTNProjectLink.url }
+      })
+      return project
+    })
+    return fetchedProjects
   } catch (err) {
     console.log('error fetching todos')
     console.log(err)
@@ -33,7 +67,6 @@ export async function addLinktoProject(
   project: IProject,
   projectLink: { name: string; url: string },
 ) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let createdTMTNProjectLinkData: any
   let createdProjectLinksData: any
   try {
@@ -52,7 +85,7 @@ export async function addLinktoProject(
       },
     })
     if (createdProjectLinksData) return createdProjectLinksData.data.createProjectLinks
-    throw new Error("Error adding project link")
+    throw new Error('Error adding project link')
   } catch (error) {
     console.log(error)
   }
