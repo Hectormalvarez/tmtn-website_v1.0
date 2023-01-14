@@ -1,4 +1,5 @@
 import React from 'react'
+import { useLocation } from 'react-router-dom'
 
 import { useAdmin } from '../hooks/AdminContext'
 import AddProjectLinkForm from './AddProjectLinkForm'
@@ -8,16 +9,18 @@ import { getPossibleProjectLinks } from '../service/projectService'
 import { EAdminAction } from '../hooks/adminReducer'
 
 const ProjectLinks: React.FC<{ project: IProject }> = ({ project }) => {
-  const linkOptions = ['WEBSITE', 'GITHUB', 'FIGMA']
   const { adminState, dispatch } = useAdmin()
+  const linkOptions = ['WEBSITE', 'GITHUB', 'FIGMA']
   const remaininglinks = getPossibleProjectLinks(project, linkOptions)
   const showLinkForm = project.id === adminState.addingLinkProjectID
+  const currentLocation = useLocation()
 
   // show add link button
-  if (adminState.loggedIn && remaininglinks.length !== 0) {
+  if (adminState.loggedIn && remaininglinks.length !== 0 && currentLocation.pathname === '/admin') {
     return (
       <div className='m-2 flex flex-col bg-gray-200 p-2'>
         <div className='flex flex-row-reverse justify-around'>
+
           {/* do not show add link if form is showing */}
           {!showLinkForm && (
             <div
@@ -36,11 +39,14 @@ const ProjectLinks: React.FC<{ project: IProject }> = ({ project }) => {
               add link
             </div>
           )}
+
           {project.links?.map((link) => {
             return <ProjectLink link={link} key={link.name} />
           })}
         </div>
+
         {showLinkForm && <AddProjectLinkForm project={project} linkOptions={linkOptions} />}
+
       </div>
     )
   }
@@ -48,7 +54,7 @@ const ProjectLinks: React.FC<{ project: IProject }> = ({ project }) => {
   // if not logged in
   return (
     <div className='m-2 flex flex-row-reverse justify-around bg-gray-200  p-2'>
-      {project.links ? (
+      {project.links?.length ? (
         project.links?.map((link) => {
           return <ProjectLink link={link} key={link.name} />
         })
