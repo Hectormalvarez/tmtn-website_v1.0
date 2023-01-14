@@ -6,7 +6,7 @@ import { EAdminAction } from '../hooks/adminReducer'
 const AddProjectButton = () => {
   const { adminState, dispatch } = useAdmin()
   if (!adminState.loggedIn) return <></>
-  if (adminState.loggedIn && adminState.addingProject)
+  if (adminState.addingProject)
     return (
       <button
         className='border-2 border-gray-900 p-2 hover:bg-gray-900 hover:fill-white hover:text-white'
