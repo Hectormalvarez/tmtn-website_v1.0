@@ -19,29 +19,18 @@ const AddProjectLink: React.FC<{ project: IProject; linkOptions: string[] }> = (
   } = useForm<{ name: string; url: string }>()
 
   const onSubmit = handleSubmit((data) => {
-    // extract new link from form submission
     const newLink = { name: data.name.toLowerCase(), url: data.url }
 
-    // original links container for roll back
-    let originalLinks
-
     if (project.links) {
-      // save project links
-      originalLinks = [...project.links]
       project.links.push(newLink)
     } else {
       project.links = [newLink]
     }
-    try {
-      addLinktoProject(project, newLink).then((linkAddedData) => {
-        console.log('link added', linkAddedData)
-      })
-    } catch (error) {
-      project.links.pop()
-      console.log('error with API call', error)
-    }
-    dispatch({ type: EAdminAction.ADDING_LINK, payload: false })
+
+    addLinktoProject(project, newLink)
+  
     reset()
+    dispatch({ type: EAdminAction.ADDING_LINK, payload: false })
   })
 
   const availableProjectLinks = getPossibleProjectLinks(project, linkOptions)
