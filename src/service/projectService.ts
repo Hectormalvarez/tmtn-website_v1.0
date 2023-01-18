@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { API } from 'aws-amplify'
+import { API, Auth } from 'aws-amplify'
 import { IProject } from '../hooks/AdminContext'
 import { createTMTNProject, createTMTNProjectLink, createProjectLinks } from '../graphql/mutations'
 
@@ -57,6 +57,9 @@ export async function createProject(projectData: IProject) {
 }
 
 export async function createProjectLink(projectLink: { name: string; url: string }) {
+  const areAuthenticated = await Auth.currentAuthenticatedUser()
+  if (!areAuthenticated) throw new Error('not logged in!')
+
   return await API.graphql({
     query: createTMTNProjectLink,
     variables: { input: projectLink, authMode: 'AWS_IAM' },
@@ -70,11 +73,14 @@ export async function addLinktoProject(
   let createdTMTNProjectLinkData: any
   let createdProjectLinksData: any
   try {
+    const areAuthenticated = await Auth.currentAuthenticatedUser()
+    if (!areAuthenticated) throw new Error('not logged in!')
     createdTMTNProjectLinkData = await API.graphql({
       query: createTMTNProjectLink,
       variables: { input: projectLink, authMode: 'AWS_IAM' },
     })
-    if (!createdTMTNProjectLinkData) throw new Error('unable to create link!')
+    if (!createdTMTNProjectLinkData.createTMTNProjectLink.id)
+      throw new Error('unable to create link!')
     createdProjectLinksData = await API.graphql({
       query: createProjectLinks,
       variables: {
@@ -84,10 +90,14 @@ export async function addLinktoProject(
         },
       },
     })
-    if (createdProjectLinksData) return createdProjectLinksData.data.createProjectLinks
-    throw new Error('Error adding project link')
+    const createdLinkData = { ...createdProjectLinksData.data.createProjectLinks }
+
+    if (createdProjectLinksData.length) createdProjectLinksData = createdLinkData
+    throw new Error('Error adding link to projectlinks')
   } catch (error) {
-    console.log(error)
+    console.log('error occured trying to add link', error)
+    if (!createdProjectLinksData) createdProjectLinksData = false
+    return createdProjectLinksData
   }
 }
 
