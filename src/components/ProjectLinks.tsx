@@ -24,7 +24,7 @@ const ProjectLinks: React.FC<{ project: IProject }> = ({ project }) => {
           {/* do not show add link if form is showing */}
           {!showLinkForm && (
             <div
-              className='text-center text-black lg:hover:cursor-pointer lg:hover:bg-white'
+              className='text-center text-black lg:hover:cursor-pointer lg:hover:bg-white my-auto w-28 py-2'
               onClick={() => {
                 dispatch({ type: EAdminAction.ADDING_LINK, projectID: project.id })
               }}
