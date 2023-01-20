@@ -43,9 +43,8 @@ export async function fetchProjects() {
       return project
     })
     return fetchedProjects
-  } catch (err) {
-    console.log('error fetching todos')
-    console.log(err)
+  } catch (error) {
+    console.log('error fetching todos', error)
   }
 }
 
@@ -71,17 +70,18 @@ export async function addLinktoProject(
   projectLink: { name: string; url: string },
 ) {
   let createdTMTNProjectLinkData: any
-  let createdProjectLinksData: any
   try {
     const areAuthenticated = await Auth.currentAuthenticatedUser()
     if (!areAuthenticated) throw new Error('not logged in!')
+
+    // create project link record
     createdTMTNProjectLinkData = await API.graphql({
       query: createTMTNProjectLink,
       variables: { input: projectLink, authMode: 'AWS_IAM' },
     })
-    if (!createdTMTNProjectLinkData.createTMTNProjectLink.id)
-      throw new Error('unable to create link!')
-    createdProjectLinksData = await API.graphql({
+
+    // add project link record to projectlinks m2m table
+    await API.graphql({
       query: createProjectLinks,
       variables: {
         input: {
@@ -90,14 +90,8 @@ export async function addLinktoProject(
         },
       },
     })
-    const createdLinkData = { ...createdProjectLinksData.data.createProjectLinks }
-
-    if (createdProjectLinksData.length) createdProjectLinksData = createdLinkData
-    throw new Error('Error adding link to projectlinks')
   } catch (error) {
     console.log('error occured trying to add link', error)
-    if (!createdProjectLinksData) createdProjectLinksData = false
-    return createdProjectLinksData
   }
 }
 
