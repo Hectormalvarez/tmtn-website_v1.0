@@ -1,6 +1,10 @@
 import React from 'react'
+import { useAdmin } from '../hooks/AdminContext'
 
 const EditProjectsButton = () => {
+  const {adminState} = useAdmin();
+
+  if (!adminState.loggedIn) return <></>
   return (
     <div
       className='
