@@ -9,7 +9,7 @@ const AddProjectButton = () => {
   if (adminState.addingProject)
     return (
       <button
-        className='border-2 border-gray-900 p-2 hover:bg-gray-900 hover:fill-white hover:text-white'
+        className='border-2 border-gray-900 p-2 hover:shadow-md hover:shadow-gray-600  duration-300'
         onClick={() => dispatch({ type: EAdminAction.ADDING_PROJECT, payload: false })}
       >
         cancel
@@ -17,11 +17,11 @@ const AddProjectButton = () => {
     )
   return (
     <button
-      className='flex border-2 border-gray-900 p-2 hover:bg-gray-900 hover:fill-white hover:text-white'
+      className='flex border-2 border-gray-900 p-2 hover:shadow-lg hover:shadow-gray-600 duration-300'
       onClick={() => dispatch({ type: EAdminAction.ADDING_PROJECT, payload: true })}
     >
       <svg
-        className='w-6 p-1 lg:w-8 fill-white'
+        className='w-6 mx-1 lg:w-8 fill-white'
         viewBox='0 0 24 24'
         xmlns='http://www.w3.org/2000/svg'
       >
@@ -33,7 +33,7 @@ const AddProjectButton = () => {
           strokeLinejoin='round'
         />
       </svg>
-      Add Project
+      add project
     </button>
   )
 }
