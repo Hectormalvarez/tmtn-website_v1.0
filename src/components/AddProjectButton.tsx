@@ -5,7 +5,7 @@ import { EAdminAction } from '../hooks/adminReducer'
 
 const AddProjectButton = () => {
   const { adminState, dispatch } = useAdmin()
-  if (!adminState.loggedIn) return <></>
+  if (!adminState.loggedIn || adminState.editingProjects) return <></>
   if (adminState.addingProject)
     return (
       <button
