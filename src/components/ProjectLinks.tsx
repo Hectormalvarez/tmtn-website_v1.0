@@ -21,9 +21,9 @@ const ProjectLinks: React.FC<{ project: IProject }> = ({ project }) => {
       <div className='m-2 flex flex-col bg-gray-200 p-2'>
         <div className='flex flex-row-reverse justify-around'>
           {/* do not show add link if form is showing */}
-          {!showLinkForm && (
+          {!showLinkForm && !adminState.editingProjects && (
             <div
-              className='my-auto w-28 py-2 text-center capitalize font-bold text-black lg:hover:cursor-pointer lg:hover:bg-white'
+              className='my-auto w-28 py-2 text-center font-bold capitalize text-black lg:hover:cursor-pointer lg:hover:bg-white'
               onClick={() => {
                 dispatch({ type: EAdminAction.ADDING_LINK, projectID: project.id })
               }}
