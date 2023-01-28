@@ -12,13 +12,12 @@ const EditProjectsButton = () => {
         className='
         flex cursor-pointer border-2 border-gray-900 p-2 duration-300 hover:shadow-lg hover:shadow-gray-600
         '
-        onClick={() => dispatch({ type: EAdminAction.EDITING_PROJECTS, payload: false })}
+        onClick={() => {
+          dispatch({type: EAdminAction.SET_CURRENTLY_EDITING, setCurrentlyEditing: null})
+          dispatch({ type: EAdminAction.EDITING_PROJECTS, payload: false })
+        }}
       >
-        <svg
-          className='w-6 p-1 lg:w-8'
-          viewBox='0 0 48 48'
-          xmlns='http://www.w3.org/2000/svg'
-        >
+        <svg className='w-6 p-1 lg:w-8' viewBox='0 0 48 48' xmlns='http://www.w3.org/2000/svg'>
           <g id='Layer_2' data-name='Layer 2'>
             <g id='invisible_box' data-name='invisible box'>
               <rect width='48' height='48' fill='none' />
