@@ -12,14 +12,14 @@ export enum EAdminAction {
 export type TadminAction = {
   type: EAdminAction
   payload?: boolean
-  projectID?: string
+  addingLinkProjectID?: string | null
   setCurrentlyEditing?: { type: string; id?: string } | null
 }
 
 export const adminReducer: Reducer<TadminState, TadminAction> = (adminState, action) => {
   switch (action.type) {
     case EAdminAction.ADDING_LINK:
-      return { ...adminState, addingLinkProjectID: action.projectID }
+      return { ...adminState, addingLinkProjectID: action.addingLinkProjectID }
     case EAdminAction.ADDING_PROJECT:
       return { ...adminState, addingProject: action.payload }
     case EAdminAction.LOGGEDIN:
