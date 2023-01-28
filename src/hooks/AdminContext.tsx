@@ -9,6 +9,7 @@ export interface IProject {
   techstack: string
   links?:
     | {
+        id?: string | undefined
         name: string
         url: string
       }[]
@@ -17,7 +18,7 @@ export interface IProject {
 
 const initialProjectState: IProject[] = [
   {
-    id: "234",
+    id: '234',
     name: 'Loading...',
     description: 'Loading...',
     techstack: 'Loading...',
@@ -42,12 +43,22 @@ export type TadminState = {
   loggedIn: boolean | undefined
   addingProject: boolean | undefined
   addingLinkProjectID: string | undefined | null
+  editingProjects: boolean | undefined
+  currentlyEditing: {
+    type: string | null | undefined
+    id: string | null | undefined
+  }
 }
 
 const initialAdminState: TadminState = {
   loggedIn: false,
   addingProject: false,
   addingLinkProjectID: null,
+  editingProjects: false,
+  currentlyEditing: {
+    type: null,
+    id: null,
+  },
 }
 
 type TAdminContext = {
