@@ -41,7 +41,7 @@ const initialProjectState: IProject[] = [
 
 export type TadminState = {
   loggedIn: boolean | undefined
-  addingProject: boolean | undefined
+  addingProject: boolean | undefined | null
   addingLinkProjectID: string | undefined | null
   editingProjects: boolean | undefined
   currentlyEditing: {
@@ -52,12 +52,12 @@ export type TadminState = {
 
 const initialAdminState: TadminState = {
   loggedIn: false,
-  addingProject: false,
-  addingLinkProjectID: null,
-  editingProjects: false,
+  addingProject: undefined,
+  addingLinkProjectID: undefined,
+  editingProjects: undefined,
   currentlyEditing: {
-    type: null,
-    id: null,
+    type: undefined,
+    id: undefined,
   },
 }
 
