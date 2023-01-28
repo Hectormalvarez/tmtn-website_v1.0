@@ -1,0 +1,36 @@
+import React from 'react'
+import { useAdmin } from '../hooks/AdminContext'
+import { EAdminAction } from '../hooks/adminReducer'
+
+const EditButton: React.FC<{ type: string; id: string | undefined }> = ({ type, id }) => {
+  const { dispatch } = useAdmin()
+  return (
+    <div
+      className='m-2 flex cursor-pointer border-2 p-2 hover:border-gray-100 hover:bg-gray-900'
+      onClick={() => {
+        dispatch({ type: EAdminAction.EDITING_PROJECTS, payload: true })
+        dispatch({
+          type: EAdminAction.SET_CURRENTLY_EDITING,
+          setCurrentlyEditing: { id: id, type: type },
+        })
+      }}
+    >
+      <svg
+        className='w-6 fill-gray-600 stroke-gray-50 p-1 lg:w-8'
+        viewBox='0 0 24 24'
+        fill='none'
+        xmlns='http://www.w3.org/2000/svg'
+      >
+        <path
+          d='M12 4H6C4.89543 4 4 4.89543 4 6V18C4 19.1046 4.89543 20 6 20H18C19.1046 20 20 19.1046 20 18V12M9 15V12.5L17.75 3.75C18.4404 3.05964 19.5596 3.05964 20.25 3.75V3.75C20.9404 4.44036 20.9404 5.55964 20.25 6.25L15.5 11L11.5 15H9Z'
+          strokeWidth='2'
+          strokeLinecap='round'
+          strokeLinejoin='round'
+        />
+      </svg>
+      <p>edit</p>
+    </div>
+  )
+}
+
+export default EditButton
