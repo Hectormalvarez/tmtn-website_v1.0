@@ -9,19 +9,24 @@ const AddProjectButton = () => {
   if (adminState.addingProject)
     return (
       <button
-        className='border-2 border-gray-900 p-2 hover:shadow-md hover:shadow-gray-600  duration-300'
+        className='border-2 border-gray-900 p-2 duration-300 hover:shadow-md  hover:shadow-gray-600'
         onClick={() => dispatch({ type: EAdminAction.ADDING_PROJECT, payload: false })}
       >
         cancel
       </button>
     )
+
   return (
     <button
-      className='flex border-2 border-gray-900 p-2 hover:shadow-lg hover:shadow-gray-600 duration-300'
-      onClick={() => dispatch({ type: EAdminAction.ADDING_PROJECT, payload: true })}
+      className='flex border-2 border-gray-900 p-2 duration-300 hover:shadow-lg hover:shadow-gray-600'
+      onClick={() => {
+        if (adminState.addingLinkProjectID)
+          dispatch({ type: EAdminAction.ADDING_LINK, addingLinkProjectID: null })
+        dispatch({ type: EAdminAction.ADDING_PROJECT, payload: true })
+      }}
     >
       <svg
-        className='w-6 mx-1 lg:w-8 fill-white'
+        className='mx-1 w-6 fill-white lg:w-8'
         viewBox='0 0 24 24'
         xmlns='http://www.w3.org/2000/svg'
       >
