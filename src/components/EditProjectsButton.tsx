@@ -13,7 +13,7 @@ const EditProjectsButton = () => {
         flex cursor-pointer border-2 border-gray-900 p-2 duration-300 hover:shadow-lg hover:shadow-gray-600
         '
         onClick={() => {
-          dispatch({type: EAdminAction.SET_CURRENTLY_EDITING, setCurrentlyEditing: null})
+          dispatch({ type: EAdminAction.SET_CURRENTLY_EDITING, setCurrentlyEditing: null })
           dispatch({ type: EAdminAction.EDITING_PROJECTS, payload: false })
         }}
       >

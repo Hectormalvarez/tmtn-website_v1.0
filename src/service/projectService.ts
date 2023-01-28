@@ -38,7 +38,11 @@ export async function fetchProjects() {
     // transform data to match IProject
     fetchedProjects = projectData.data.listTMTNProjects.items.map((project: any) => {
       project.links = project.links.items.map((projectLink: any) => {
-        return { name: projectLink.tMTNProjectLink.name, url: projectLink.tMTNProjectLink.url, id: projectLink.tMTNProjectLink.id }
+        return {
+          name: projectLink.tMTNProjectLink.name,
+          url: projectLink.tMTNProjectLink.url,
+          id: projectLink.tMTNProjectLink.id,
+        }
       })
       return project
     })

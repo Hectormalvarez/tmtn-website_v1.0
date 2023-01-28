@@ -3,7 +3,7 @@ import React from 'react'
 // import { EAdminAction } from '../hooks/adminReducer'
 
 const DeleteButton: React.FC<{ type: string; id: string | undefined }> = ({ type, id }) => {
-//   const { dispatch } = useAdmin()
+  //   const { dispatch } = useAdmin()
 
   return (
     <div
