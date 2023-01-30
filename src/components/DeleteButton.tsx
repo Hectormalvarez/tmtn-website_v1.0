@@ -7,11 +7,11 @@ const DeleteButton: React.FC<{ type: string; id: string | undefined }> = ({ type
 
   return (
     <div
-      className='m-2 flex cursor-pointer border-2 p-2 hover:border-gray-100 hover:bg-red-700 '
+      className='flex flex-grow cursor-pointer border-2 hover:border-gray-100 hover:bg-red-700'
       onClick={() => console.log(`DELETING ${id}`)}
     >
       <svg
-        className='w-6 fill-gray-600 stroke-gray-50 p-1 lg:w-8'
+        className='ml-2 w-6 fill-gray-900 stroke-gray-50 lg:w-8'
         viewBox='0 0 24 24'
         fill='none'
         xmlns='http://www.w3.org/2000/svg'
@@ -23,7 +23,7 @@ const DeleteButton: React.FC<{ type: string; id: string | undefined }> = ({ type
           strokeLinejoin='round'
         />
       </svg>
-      <p>delete</p>
+      <p className='my-auto p-2'>delete</p>
     </div>
   )
 }

@@ -1,6 +1,8 @@
 import React from 'react'
 
 import { IProject, useAdmin } from '../hooks/AdminContext'
+import DeleteButton from './DeleteButton'
+import EditButton from './EditButton'
 import ProjectLinks from './ProjectLinks'
 
 interface ProjectProps {
@@ -13,11 +15,14 @@ const Project: React.FC<ProjectProps> = ({ project }) => {
   const showEditForm = adminState.currentlyEditing.id == project.id
 
   return (
-    <article
-      key={project.name}
-      className='m-4 flex flex-col bg-gray-800 p-2 text-white lg:flex-row lg:justify-center lg:align-middle'
-    >
-      <div className='w-full'>
+    <article key={project.name} className='m-4 bg-gray-800 p-2 text-white'>
+      <div className='w-full lg:flex'>
+        {adminState.editingProjects && (
+          <div className='flex lg:flex-col gap-2 m-2'>
+              <EditButton type='project' id={project.id} />
+              <DeleteButton type='project' id={project.id} />
+          </div>
+        )}
         <div className='flex flex-col p-2 lg:flex-grow'>
           <h3 className='text-xl lg:text-3xl'>{project.name}</h3>
           <p className='flex-grow text-sm lg:text-lg'>{project.description}</p>

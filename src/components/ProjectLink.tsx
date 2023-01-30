@@ -1,6 +1,8 @@
 import React from 'react'
-// import { useAdmin } from '../hooks/AdminContext'
-// import EditPanel from './EditPanel'
+
+import { useAdmin } from '../hooks/AdminContext'
+import DeleteButton from './DeleteButton'
+import EditButton from './EditButton'
 
 interface IProjectLinkProps {
   link: {
@@ -11,11 +13,10 @@ interface IProjectLinkProps {
 }
 
 const ProjectLink: React.FC<IProjectLinkProps> = ({ link }) => {
-  // const { adminState } = useAdmin()
+  const { adminState } = useAdmin()
   return (
     <>
-      {/* {adminState.editingProjects && <EditPanel type="link" id={link.id} />} */}
-      <figure className='my-auto w-32 py-2 lg:hover:cursor-pointer lg:hover:bg-white '>
+      <figure className='my-auto w-32 p-2 lg:hover:cursor-pointer lg:hover:bg-white '>
         <a href={`${link.url}`} target='_blank' rel='noreferrer'>
           <img
             className='mx-auto w-8 lg:w-16'
@@ -26,6 +27,12 @@ const ProjectLink: React.FC<IProjectLinkProps> = ({ link }) => {
             {link.name}
           </figcaption>
         </a>
+        {adminState.editingProjects && (
+          <div className='bg-gray-800 p-2'>
+            <EditButton type='link' id={link.id} />
+            <DeleteButton type='link' id={link.id} />
+          </div>
+        )}
       </figure>
     </>
   )
