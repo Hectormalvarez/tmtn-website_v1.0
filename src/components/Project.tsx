@@ -2,6 +2,7 @@ import React from 'react'
 
 import { IProject, useAdmin } from '../hooks/AdminContext'
 import DeleteButton from './DeleteButton'
+import EditProjectForm from './EditProjectForm'
 import EditButton from './EditButton'
 import ProjectLinks from './ProjectLinks'
 
@@ -30,7 +31,7 @@ const Project: React.FC<ProjectProps> = ({ project }) => {
         </div>
         <ProjectLinks project={project} />
       </div>
-      {showEditForm && <div>HELLO EDIT FORM</div>}
+      {showEditForm && <EditProjectForm project={project} />}
     </article>
   )
 }
