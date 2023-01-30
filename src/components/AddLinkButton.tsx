@@ -4,12 +4,13 @@ import { useAdmin } from '../hooks/AdminContext'
 import { EAdminAction } from '../hooks/adminReducer'
 
 const AddLinkButton: React.FC<{ id: string }> = ({ id }) => {
-  const { dispatch } = useAdmin()
+  const { adminState, dispatch } = useAdmin()
 
   return (
     <div
       className='my-auto ml-auto w-28 py-2 text-center font-bold capitalize text-black lg:hover:cursor-pointer lg:hover:bg-white'
       onClick={() => {
+        if (adminState.addingProject) dispatch({type: EAdminAction.ADDING_PROJECT, payload: false})
         dispatch({ type: EAdminAction.ADDING_LINK, addingLinkProjectID: id })
       }}
     >
