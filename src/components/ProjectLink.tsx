@@ -27,7 +27,7 @@ const ProjectLink: React.FC<IProjectLinkProps> = ({ link }) => {
             {link.name}
           </figcaption>
         </a>
-        {adminState.editingProjects && (
+        {adminState.editingProjects && adminState.currentlyEditing.type !== 'project' && (
           <div className='bg-gray-800 p-2'>
             <EditButton type='link' id={link.id} />
             <DeleteButton type='link' id={link.id} />
