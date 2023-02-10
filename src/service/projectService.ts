@@ -53,6 +53,9 @@ export async function fetchProjects() {
 }
 
 export async function createProject(projectData: IProject) {
+  const areAuthenticated = await Auth.currentAuthenticatedUser()
+  if (!areAuthenticated) throw new Error('not logged in!')
+
   return await API.graphql({
     query: createTMTNProject,
     variables: { input: projectData, authMode: 'AWS_IAM' },
