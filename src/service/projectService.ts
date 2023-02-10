@@ -1,7 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { API, Auth } from 'aws-amplify'
+import {
+  createTMTNProject,
+  createTMTNProjectLink,
+  createProjectLinks,
+  updateTMTNProject,
+} from '../graphql/mutations'
+
 import { IProject } from '../hooks/AdminContext'
-import { createTMTNProject, createTMTNProjectLink, createProjectLinks } from '../graphql/mutations'
 
 const customListTMTNProjects = /* GraphQL */ `
   query CustomListTMTNProjects {
@@ -60,6 +66,22 @@ export async function createProject(projectData: IProject) {
     query: createTMTNProject,
     variables: { input: projectData, authMode: 'AWS_IAM' },
   })
+}
+
+export async function updateProject(projectUpdateData: IProject) {
+  // auth check
+  const areAuthenticated = await Auth.currentAuthenticatedUser()
+  if (!areAuthenticated) throw new Error('not logged in!')
+
+  try {
+    const updatedProjectData = await API.graphql({
+      query: updateTMTNProject,
+      variables: { input: projectUpdateData, authMode: 'AWS_IAM' },
+    })
+    return {...updatedProjectData}
+  } catch (error) {
+    console.log("ERROR UPDATING PROJECT")
+  }
 }
 
 export async function createProjectLink(projectLink: { name: string; url: string }) {
