@@ -3,12 +3,8 @@ import { useForm } from 'react-hook-form'
 
 import { IProject } from '../hooks/AdminContext'
 import { createProject } from '../service/projectService'
-import { useAdmin } from '../hooks/AdminContext'
-import { EAdminAction } from '../hooks/adminReducer'
 
 const AddProject = () => {
-  const { projectData, dispatch } = useAdmin()
-
   const {
     register,
     handleSubmit,
@@ -17,17 +13,8 @@ const AddProject = () => {
   } = useForm<IProject>()
 
   const onSubmit = handleSubmit((data) => {
-    try {
-      dispatch({ type: EAdminAction.ADDING_PROJECT, payload: false })
-      projectData.push(data)
-      createProject(data)
-      console.log(data)
-      reset()
-    } catch (error) {
-      dispatch({ type: EAdminAction.ADDING_PROJECT, payload: true })
-      projectData.pop()
-      console.log(error)
-    }
+    createProject(data)
+    reset()
   })
 
   return (
