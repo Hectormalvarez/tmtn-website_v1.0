@@ -17,8 +17,8 @@ const Project: React.FC<ProjectProps> = ({ project }) => {
 
   return (
     <article key={project.name} className='m-4 bg-gray-800 p-2 text-white'>
-      <div className='w-full lg:flex'>
-        {adminState.editingProjects && (
+      <div className={`w-full ${adminState.currentlyEditing  ? "" : "lg:flex"}`}>
+        {adminState.editingProjects && adminState.currentlyEditing.id !== project.id && (
           <div className='flex lg:flex-col gap-2 m-2'>
               <EditButton type='project' id={project.id} />
               <DeleteButton type='project' id={project.id} />
