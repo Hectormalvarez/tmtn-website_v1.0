@@ -65,6 +65,7 @@ type TAdminContext = {
   adminState: TadminState
   projectData: IProject[]
   dispatch: Dispatch<TadminAction>
+  setProjectData: React.Dispatch<React.SetStateAction<IProject[]>>
 }
 
 const AdminContext = React.createContext<TAdminContext | null>(null)
@@ -88,6 +89,7 @@ export const AdminProvider = (props: { children?: React.ReactNode }) => {
         adminState,
         dispatch,
         projectData,
+        setProjectData,
       }}
     >
       {props.children}
