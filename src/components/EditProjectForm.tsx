@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { IProject } from '../hooks/AdminContext'
@@ -7,34 +7,46 @@ import { useAdmin } from '../hooks/AdminContext'
 import { EAdminAction } from '../hooks/adminReducer'
 
 const EditProjectForm: React.FC<{ project: IProject }> = ({ project }) => {
-  const { projectData, dispatch } = useAdmin()
+  const { projectData, setProjectData, dispatch } = useAdmin()
 
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
+    setValue,
   } = useForm<IProject>()
 
   const onSubmit = handleSubmit((data) => {
-    try {
-      updateProject(data)
-      console.log(data, project, projectData)
-      reset()
-    } catch (error) {
-      console.log(error)
+    const updatedProject = {
+      id: project.id,
+      name: data.name,
+      description: data.description,
+      techstack: data.techstack,
     }
+    updateProject(updatedProject)
+    const updatedProjectData = projectData.map((p) => {
+      return p.id !== project.id ? p : {...project, ...updatedProject}
+    })
+    setProjectData(updatedProjectData)
+    reset()
+    dispatch({type: EAdminAction.SET_CURRENTLY_EDITING, setCurrentlyEditing: null})
   })
 
+  useEffect(() => {
+    setValue('name', project.name)
+    setValue('description', project.description)
+    setValue('techstack', project.techstack)
+  }, [])
+
   return (
-    <form onSubmit={onSubmit} className='m-4 flex flex-col border-2 border-gray-800 p-2'>
-      <h3 className='text-lg font-bold capitalize'>add a new project</h3>
+    <form onSubmit={onSubmit} className='m-2 flex flex-col border-2 border-gray-800 p-2'>
+      <h3 className='text-lg font-bold'>edit {project.name}</h3>
 
       <label>Name</label>
       <input
         className='border-2 border-gray-800 p-2 text-gray-800'
         {...register('name', { required: true })}
-        value={project.name}
       />
       {errors.name && 'Name Required!'}
 
@@ -42,7 +54,6 @@ const EditProjectForm: React.FC<{ project: IProject }> = ({ project }) => {
       <input
         className='border-2 border-gray-800 p-2 text-gray-800'
         {...register('description', { required: true })}
-        value={project.description}
       />
       {errors.name && 'Description Required!'}
 
@@ -50,31 +61,16 @@ const EditProjectForm: React.FC<{ project: IProject }> = ({ project }) => {
       <input
         className='border-2 border-gray-800 p-2 text-gray-800'
         {...register('techstack', { required: true })}
-        value={project.techstack}
       />
       {errors.name && 'TechStack Required!'}
 
       <button
         className='
-        my-2 border-2 border-gray-100 bg-gray-800 p-2 text-gray-50 hover:border-gray-900 hover:bg-gray-200
-        hover:fill-white hover:text-black
+        my-2 border-2 border-gray-100 bg-gray-800 p-2 text-gray-50 hover:bg-gray-600
+        hover:fill-white
         '
       >
         submit
-      </button>
-      <button
-        className='
-        border-2 border-gray-900 bg-gray-200 p-2 text-gray-900 hover:border-gray-200 hover:bg-gray-800
-        hover:fill-white hover:text-white
-        '
-        onClick={() => {
-            dispatch({
-                type: EAdminAction.SET_CURRENTLY_EDITING,
-                setCurrentlyEditing: null,
-              })
-        }}
-      >
-        cancel
       </button>
     </form>
   )

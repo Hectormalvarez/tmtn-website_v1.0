@@ -69,16 +69,14 @@ export async function createProject(projectData: IProject) {
 }
 
 export async function updateProject(projectUpdateData: IProject) {
-  // auth check
   const areAuthenticated = await Auth.currentAuthenticatedUser()
   if (!areAuthenticated) throw new Error('not logged in!')
 
   try {
-    const updatedProjectData = await API.graphql({
+    await API.graphql({
       query: updateTMTNProject,
       variables: { input: projectUpdateData, authMode: 'AWS_IAM' },
     })
-    return {...updatedProjectData}
   } catch (error) {
     console.log("ERROR UPDATING PROJECT")
   }
