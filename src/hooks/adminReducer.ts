@@ -7,6 +7,7 @@ export enum EAdminAction {
   ADDING_LINK = 'addingLink',
   EDITING_PROJECTS = 'editingProjects',
   SET_CURRENTLY_EDITING = 'setCurrentlyEditing',
+  SET_CURRENTLY_DELETING = 'setCurrentlyDeleting',
 }
 
 export type TadminAction = {
@@ -14,6 +15,7 @@ export type TadminAction = {
   payload?: boolean
   addingLinkProjectID?: string | null
   setCurrentlyEditing?: { type: string; id?: string } | null
+  setCurrentlyDeleting?: { type: string; id?: string } | null
 }
 
 export const adminReducer: Reducer<TadminState, TadminAction> = (adminState, action) => {
@@ -26,12 +28,21 @@ export const adminReducer: Reducer<TadminState, TadminAction> = (adminState, act
       return { ...adminState, loggedIn: action.payload }
     case EAdminAction.EDITING_PROJECTS:
       return { ...adminState, editingProjects: action.payload }
+
     case EAdminAction.SET_CURRENTLY_EDITING:
       return {
         ...adminState,
         currentlyEditing: {
           type: action.setCurrentlyEditing?.type,
           id: action.setCurrentlyEditing?.id,
+        },
+      }
+    case EAdminAction.SET_CURRENTLY_DELETING:
+      return {
+        ...adminState,
+        currentlyDeleting: {
+          type: action.setCurrentlyDeleting?.type,
+          id: action.setCurrentlyDeleting?.id,
         },
       }
     default:

@@ -1,14 +1,16 @@
 import React from 'react'
-// import { useAdmin } from '../hooks/AdminContext'
-// import { EAdminAction } from '../hooks/adminReducer'
+import { useAdmin } from '../hooks/AdminContext'
+import { EAdminAction } from '../hooks/adminReducer'
 
 const DeleteButton: React.FC<{ type: string; id: string | undefined }> = ({ type, id }) => {
-  //   const { dispatch } = useAdmin()
+  const { dispatch } = useAdmin()
 
   return (
     <div
       className='flex flex-grow cursor-pointer border-2 hover:border-gray-100 hover:bg-red-700'
-      onClick={() => console.log(`DELETING ${id}`)}
+      onClick={() => {
+        dispatch({ type: EAdminAction.SET_CURRENTLY_DELETING, setCurrentlyDeleting: { id, type } })
+      }}
     >
       <svg
         className='ml-2 w-6 fill-gray-900 stroke-gray-50 lg:w-8'

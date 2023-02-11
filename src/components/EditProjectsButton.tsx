@@ -14,6 +14,7 @@ const EditProjectsButton = () => {
         '
         onClick={() => {
           dispatch({ type: EAdminAction.SET_CURRENTLY_EDITING, setCurrentlyEditing: null })
+          dispatch({ type: EAdminAction.SET_CURRENTLY_DELETING, setCurrentlyDeleting: null })
           dispatch({ type: EAdminAction.EDITING_PROJECTS, payload: false })
         }}
       >

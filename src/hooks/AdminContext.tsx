@@ -48,6 +48,10 @@ export type TadminState = {
     type: string | null | undefined
     id: string | null | undefined
   }
+  currentlyDeleting: {
+    type: string | null | undefined
+    id: string | null | undefined
+  }
 }
 
 const initialAdminState: TadminState = {
@@ -56,6 +60,10 @@ const initialAdminState: TadminState = {
   addingLinkProjectID: undefined,
   editingProjects: undefined,
   currentlyEditing: {
+    type: undefined,
+    id: undefined,
+  },
+  currentlyDeleting: {
     type: undefined,
     id: undefined,
   },
