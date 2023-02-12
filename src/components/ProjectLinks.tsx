@@ -7,6 +7,7 @@ import ProjectLink from './ProjectLink'
 import { IProject } from '../hooks/AdminContext'
 import { getPossibleProjectLinks } from '../service/projectService'
 import AddLinkButton from './AddLinkButton'
+import DeleteConfirm from './DeleteConfirm'
 
 const ProjectLinks: React.FC<{ project: IProject }> = ({ project }) => {
   const { adminState } = useAdmin()
@@ -15,14 +16,19 @@ const ProjectLinks: React.FC<{ project: IProject }> = ({ project }) => {
   const showLinkForm = project.id === adminState.addingLinkProjectID
   const currentLocation = useLocation()
 
-  // show add link button
+  const deletingLink = project.links?.find((link) => link.id === adminState.currentlyDeleting.id)
+
+  if (deletingLink) {
+    return <DeleteConfirm name={deletingLink.name} type='link' id={deletingLink.id as string} />
+  }
+
+  // show add link context
   if (adminState.loggedIn && remaininglinks.length !== 0 && currentLocation.pathname === '/admin') {
     return (
       <div className='m-2 flex flex-col bg-gray-200 p-2'>
         <div className='flex flex-row-reverse justify-around'>
           {/* do not show add link if form is showing */}
           {!showLinkForm && !adminState.editingProjects && <AddLinkButton id={project.id} />}
-
           {project.links?.map((link) => {
             return <ProjectLink link={link} key={link.name} />
           })}

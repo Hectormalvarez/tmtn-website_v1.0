@@ -2,7 +2,6 @@ import React from 'react'
 
 import { useAdmin } from '../hooks/AdminContext'
 import DeleteButton from './DeleteButton'
-import EditButton from './EditButton'
 
 interface IProjectLinkProps {
   link: {
@@ -29,7 +28,6 @@ const ProjectLink: React.FC<IProjectLinkProps> = ({ link }) => {
         </a>
         {adminState.editingProjects && adminState.currentlyEditing.type !== 'project' && (
           <div className='bg-gray-800 p-2'>
-            <EditButton type='link' id={link.id} />
             <DeleteButton type='link' id={link.id} />
           </div>
         )}
