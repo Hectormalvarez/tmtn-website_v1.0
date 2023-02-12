@@ -1,12 +1,12 @@
 import React from 'react'
-import { IProject, useAdmin } from '../hooks/AdminContext'
+import { useAdmin } from '../hooks/AdminContext'
 import { EAdminAction } from '../hooks/adminReducer'
 
-const DeleteProjectConfirm: React.FC<{ project: IProject }> = ({ project }) => {
+const DeleteConfirm: React.FC<{ name: string, type: string, id: string }> = ({ name, type, id }) => {
   const { dispatch } = useAdmin()
 
   const handleDeleteOnClick = () => {
-    console.log(`deleting ${project.id}`)
+    console.log(`deleting ${id}`)
   }
   const handleCancelOnClick = () => {
     dispatch({ type: EAdminAction.SET_CURRENTLY_DELETING, setCurrentlyDeleting: null })
@@ -14,7 +14,7 @@ const DeleteProjectConfirm: React.FC<{ project: IProject }> = ({ project }) => {
 
   return (
     <div>
-      <h3 className='tex p-2 text-2xl text-red-50 underline'>delete {project.name}?</h3>
+      <h3 className='tex p-2 text-2xl text-red-50 underline'>delete {type}: {name}?</h3>
       <div className='flex justify-around'>
         <div
           onClick={handleDeleteOnClick}
@@ -33,4 +33,4 @@ const DeleteProjectConfirm: React.FC<{ project: IProject }> = ({ project }) => {
   )
 }
 
-export default DeleteProjectConfirm
+export default DeleteConfirm

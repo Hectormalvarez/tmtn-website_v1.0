@@ -5,7 +5,7 @@ import DeleteButton from './DeleteButton'
 import EditProjectForm from './EditProjectForm'
 import EditButton from './EditButton'
 import ProjectLinks from './ProjectLinks'
-import DeleteProjectConfirm from './DeleteProjectConfirm'
+import DeleteConfirm from './DeleteConfirm'
 
 interface ProjectProps {
   project: IProject
@@ -35,7 +35,7 @@ const Project: React.FC<ProjectProps> = ({ project }) => {
           <p className='flex-grow text-sm lg:text-lg'>{project.description}</p>
           <p className='pb-2 text-xs text-white'>tech stack: {project.techstack}</p>
         </div>
-        {showDeleteForm && <DeleteProjectConfirm project={project} />}
+        {showDeleteForm && <DeleteConfirm name={project.name} type='project' id={project.id} />}
         {!showDeleteForm && <ProjectLinks project={project} />}
       </div>
       {showEditForm && <EditProjectForm project={project} />}
