@@ -13,11 +13,13 @@ const EditProjectForm: React.FC<{ project: IProject }> = ({ project }) => {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isDirty },
     setValue,
   } = useForm<IProject>()
 
   const onSubmit = handleSubmit((data) => {
+    if (!isDirty) return
+
     const updatedProject = {
       id: project.id,
       name: data.name,
