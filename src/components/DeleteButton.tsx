@@ -3,12 +3,14 @@ import { useAdmin } from '../hooks/AdminContext'
 import { EAdminAction } from '../hooks/adminReducer'
 
 const DeleteButton: React.FC<{ type: string; id: string | undefined }> = ({ type, id }) => {
-  const { dispatch } = useAdmin()
+  const { adminState, dispatch } = useAdmin()
 
   return (
     <div
       className='flex flex-grow cursor-pointer border-2 hover:border-gray-100 hover:bg-red-700'
       onClick={() => {
+        if (adminState.currentlyEditing)
+          dispatch({ type: EAdminAction.SET_CURRENTLY_EDITING, setCurrentlyEditing: null })
         dispatch({ type: EAdminAction.SET_CURRENTLY_DELETING, setCurrentlyDeleting: { id, type } })
       }}
     >
