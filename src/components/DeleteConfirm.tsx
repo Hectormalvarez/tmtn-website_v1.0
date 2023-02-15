@@ -9,12 +9,17 @@ const DeleteConfirm: React.FC<{ name: string; type: 'project' | 'link'; id: stri
   type,
   id,
 }) => {
-  const { dispatch } = useAdmin()
+  const { dispatch, projectData, setProjectData } = useAdmin()
 
   const handleDeleteOnClick = () => {
     console.log(`deleting ${id}`)
     if (type === 'link') {
       deleteProjectLinkFromCloud(id, type)
+      const updatedProjectData = projectData.map((project) => {
+        project.links = project.links?.filter((link) => link.id !== id)
+        return project
+      })
+      setProjectData(updatedProjectData)
     }
     dispatch({ type: EAdminAction.SET_CURRENTLY_DELETING, setCurrentlyDeleting: null })
   }

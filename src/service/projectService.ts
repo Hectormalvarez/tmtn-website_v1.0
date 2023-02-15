@@ -9,7 +9,7 @@ import {
   deleteTMTNProjectLink,
   deleteProjectLinks,
 } from '../graphql/mutations'
-import { getProjectLinks, listProjectLinks } from '../graphql/queries'
+import { listProjectLinks } from '../graphql/queries'
 
 import { IProject } from '../hooks/AdminContext'
 
