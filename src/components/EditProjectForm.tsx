@@ -28,7 +28,7 @@ const EditProjectForm: React.FC<{ project: IProject }> = ({ project }) => {
     }
     updateProject(updatedProject)
     const updatedProjectData = projectData.map((p) => {
-      return p.id !== project.id ? p : {...project, ...updatedProject}
+      return p.id !== project.id ? p : updatedProject
     })
     setProjectData(updatedProjectData)
     reset()
