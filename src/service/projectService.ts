@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { API, Auth } from 'aws-amplify'
+import { API, Auth, graphqlOperation } from 'aws-amplify'
 import {
   createTMTNProject,
   createTMTNProjectLink,
@@ -97,8 +97,8 @@ export async function createProjectLink(projectLink: { name: string; url: string
 }
 
 export async function addLinktoProject(
-  project: IProject,
-  projectLink: { name: string; url: string },
+  projectID: string,
+  projectLink: { name: string; url: string, id: string },
 ) {
   let createdTMTNProjectLinkData: any
   try {
@@ -106,18 +106,18 @@ export async function addLinktoProject(
     if (!areAuthenticated) throw new Error('not logged in!')
 
     // create project link record
-    createdTMTNProjectLinkData = await API.graphql({
-      query: createTMTNProjectLink,
-      variables: { input: projectLink, authMode: 'AWS_IAM' },
-    })
-
+    createdTMTNProjectLinkData = await API.graphql(graphqlOperation(
+      createTMTNProjectLink,
+      { input: projectLink, authMode: 'AWS_IAM' },
+    ))
+    const newLinkID: string = await createdTMTNProjectLinkData.data.createTMTNProjectLink.id
     // add project link record to projectlinks m2m table
     await API.graphql({
       query: createProjectLinks,
       variables: {
         input: {
-          tMTNProjectId: project.id,
-          tMTNProjectLinkId: createdTMTNProjectLinkData.data.createTMTNProjectLink.id,
+          tMTNProjectId: projectID,
+          tMTNProjectLinkId: newLinkID,
         },
       },
     })
@@ -129,7 +129,7 @@ export async function addLinktoProject(
 export const deleteProjectLinkFromCloud = async (linkID: string, type: 'link' | 'project') => {
   console.log('Deleting Link: ', linkID)
   if (type === 'link') {
-    const projectLinksID = await API.graphql({query: listProjectLinks, variables: {filter: {tMTNProjectLinkId: {eq: linkID}}}})
+    const projectLinksID = await API.graphql({ query: listProjectLinks, variables: { filter: { tMTNProjectLinkId: { eq: linkID } } } })
     console.log('Deleting Link Relation to Project: ', projectLinksID)
     // try {
     //   await API.graphql({query: deleteTMTNProjectLink, variables: {input: {id: linkID}}})

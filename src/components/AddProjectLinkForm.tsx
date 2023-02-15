@@ -1,5 +1,7 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { v4 as uuidv4 } from 'uuid';
+
 
 import { IProject, useAdmin } from '../hooks/AdminContext'
 import { EAdminAction } from '../hooks/adminReducer'
@@ -19,15 +21,13 @@ const AddProjectLink: React.FC<{ project: IProject; linkOptions: string[] }> = (
   } = useForm<{ name: string; url: string }>()
 
   const onSubmit = handleSubmit((data) => {
-    const newLink = { name: data.name.toLowerCase(), url: data.url }
-
+    const newLink = { name: data.name.toLowerCase(), url: data.url, id: uuidv4() }
+    addLinktoProject(project.id, newLink)
     if (project.links) {
       project.links.push(newLink)
     } else {
       project.links = [newLink]
     }
-
-    addLinktoProject(project, newLink)
 
     reset()
     dispatch({ type: EAdminAction.ADDING_LINK, payload: false })
