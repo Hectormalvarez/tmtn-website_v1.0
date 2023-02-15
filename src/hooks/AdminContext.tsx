@@ -24,14 +24,17 @@ const initialProjectState: IProject[] = [
     techstack: 'Loading...',
     links: [
       {
+        id: '1',
         name: 'github',
         url: 'https://github.com',
       },
       {
+        id: '2',
         name: 'website',
         url: 'https://www.taylormadetech.net',
       },
       {
+        id: '3',
         name: 'figma',
         url: 'https://www.figma.com',
       },
