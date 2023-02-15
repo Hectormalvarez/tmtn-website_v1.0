@@ -118,16 +118,14 @@ export async function addLinktoProject(
 
 export const deleteProjectLinkFromCloud = async (linkID: string, type: 'link' | 'project') => {
   console.log('Deleting Link: ', linkID)
-  if (type === 'link') {
-    const projectLinksIDQuery: any = await API.graphql({ query: listProjectLinks, variables: { filter: { tMTNProjectLinkId: { eq: linkID } } } })
-    const projectLinksID = projectLinksIDQuery.data.listProjectLinks.items[0].id
-    console.log('Deleting Link Relation to Project: ', projectLinksID)
-    try {
-      await API.graphql(graphqlOperation(deleteProjectLinks, { input: { id: projectLinksID }, authMode: 'AWS_IAM' }))
-      await API.graphql(graphqlOperation(deleteTMTNProjectLink, { input: { id: linkID }, authMode: 'AWS_IAM' }))
-    } catch (error) {
-      console.log("ERROR DELETING PROJECT LINK", error)
-    }
+  const projectLinksIDQuery: any = await API.graphql({ query: listProjectLinks, variables: { filter: { tMTNProjectLinkId: { eq: linkID } } } })
+  const projectLinksID = projectLinksIDQuery.data.listProjectLinks.items[0].id
+  console.log('Deleting Link Relation to Project: ', projectLinksID)
+  try {
+    await API.graphql(graphqlOperation(deleteProjectLinks, { input: { id: projectLinksID }, authMode: 'AWS_IAM' }))
+    await API.graphql(graphqlOperation(deleteTMTNProjectLink, { input: { id: linkID }, authMode: 'AWS_IAM' }))
+  } catch (error) {
+    console.log("ERROR DELETING PROJECT LINK", error)
   }
 }
 
