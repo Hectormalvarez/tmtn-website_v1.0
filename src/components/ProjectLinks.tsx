@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import { useLocation } from 'react-router-dom'
 
 import { IProject, useAdmin } from '../hooks/AdminContext'
@@ -13,7 +13,7 @@ const ProjectLinks: React.FC<{ project: IProject }> = ({ project }) => {
   
   const deletingLink = project.links?.find((link) => {
     if (!link.id) return false
-    link.id === adminState.currentlyDeleting.id
+    return link.id === adminState.currentlyDeleting.id
   })
   if (deletingLink) {
     return <DeleteConfirm name={deletingLink.name} type='link' id={deletingLink.id as string} />
