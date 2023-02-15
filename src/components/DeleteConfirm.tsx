@@ -1,12 +1,22 @@
 import React from 'react'
+
 import { useAdmin } from '../hooks/AdminContext'
 import { EAdminAction } from '../hooks/adminReducer'
+import { deleteProjectLinkFromCloud } from '../service/projectService'
 
-const DeleteConfirm: React.FC<{ name: string, type: string, id: string }> = ({ name, type, id }) => {
+const DeleteConfirm: React.FC<{ name: string; type: 'project' | 'link'; id: string }> = ({
+  name,
+  type,
+  id,
+}) => {
   const { dispatch } = useAdmin()
 
   const handleDeleteOnClick = () => {
     console.log(`deleting ${id}`)
+    if (type === 'link') {
+      deleteProjectLinkFromCloud(id, type)
+    }
+    dispatch({ type: EAdminAction.SET_CURRENTLY_DELETING, setCurrentlyDeleting: null })
   }
   const handleCancelOnClick = () => {
     dispatch({ type: EAdminAction.SET_CURRENTLY_DELETING, setCurrentlyDeleting: null })
@@ -14,7 +24,9 @@ const DeleteConfirm: React.FC<{ name: string, type: string, id: string }> = ({ n
 
   return (
     <div>
-      <h3 className='tex p-2 text-2xl text-red-50 underline'>delete {type}: {name}?</h3>
+      <h3 className='tex p-2 text-2xl text-red-50 underline'>
+        delete {type}: {name}?
+      </h3>
       <div className='flex justify-around'>
         <div
           onClick={handleDeleteOnClick}

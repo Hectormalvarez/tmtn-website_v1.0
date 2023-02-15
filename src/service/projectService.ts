@@ -5,7 +5,11 @@ import {
   createTMTNProjectLink,
   createProjectLinks,
   updateTMTNProject,
+  deleteTMTNProject,
+  deleteTMTNProjectLink,
+  deleteProjectLinks,
 } from '../graphql/mutations'
+import { getProjectLinks, listProjectLinks } from '../graphql/queries'
 
 import { IProject } from '../hooks/AdminContext'
 
@@ -78,7 +82,7 @@ export async function updateProject(projectUpdateData: IProject) {
       variables: { input: projectUpdateData, authMode: 'AWS_IAM' },
     })
   } catch (error) {
-    console.log("ERROR UPDATING PROJECT")
+    console.log('ERROR UPDATING PROJECT')
   }
 }
 
@@ -119,6 +123,20 @@ export async function addLinktoProject(
     })
   } catch (error) {
     console.log('error occured trying to add link', error)
+  }
+}
+
+export const deleteProjectLinkFromCloud = async (linkID: string, type: 'link' | 'project') => {
+  console.log('Deleting Link: ', linkID)
+  if (type === 'link') {
+    const projectLinksID = await API.graphql({query: listProjectLinks, variables: {filter: {tMTNProjectLinkId: {eq: linkID}}}})
+    console.log('Deleting Link Relation to Project: ', projectLinksID)
+    // try {
+    //   await API.graphql({query: deleteTMTNProjectLink, variables: {input: {id: linkID}}})
+    //   await API.graphql({query: deleteProjectLinks, variables: {input: {id: projectLinksID}}})
+    // } catch (error) {
+    //   console.log("ERROR DELETING PROJECT LINK")
+    // }
   }
 }
 
