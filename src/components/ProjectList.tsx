@@ -18,7 +18,7 @@ const ProjectList = () => {
       </div>
       {adminState.loggedIn && adminState.addingProject && <AddProjectForm />}
       {projectData.map((project) => {
-        return <Project key={project.name} project={project} />
+        return <Project key={project.id} project={project} />
       })}
     </section>
   )
