@@ -2,10 +2,10 @@ import React from 'react'
 
 import { IProject, useAdmin } from '../hooks/AdminContext'
 import DeleteButton from './DeleteButton'
+import DeleteConfirm from './DeleteConfirm'
 import EditProjectForm from './EditProjectForm'
 import EditButton from './EditButton'
 import ProjectLinks from './ProjectLinks'
-import DeleteConfirm from './DeleteConfirm'
 
 interface ProjectProps {
   project: IProject
