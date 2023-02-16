@@ -16,6 +16,7 @@ const Project: React.FC<ProjectProps> = ({ project }) => {
   const { adminState } = useAdmin()
   const showEditForm = adminState.currentlyEditing.id == project.id
   const showDeleteForm = adminState.currentlyDeleting.id == project.id
+  const showDeleteButton = project.links?.length === 0
   const showButtons =
     adminState.editingProjects &&
     adminState.currentlyEditing.id !== project.id &&
@@ -27,7 +28,7 @@ const Project: React.FC<ProjectProps> = ({ project }) => {
         {showButtons && (
           <div className='m-2 flex gap-2 lg:flex-col'>
             <EditButton type='project' id={project.id} />
-            <DeleteButton type='project' id={project.id} />
+            {showDeleteButton && <DeleteButton type='project' id={project.id} />}
           </div>
         )}
         <div className='flex flex-col p-2 lg:flex-grow'>
