@@ -6,6 +6,9 @@ This is the website for taylor made technology network and will serve as main po
 
 In the project directory, you can run:
 
+### `yarn install` 
+Installs dependencies needed for the project
+
 ### `yarn start`
 
 Runs the app in the development mode.\
