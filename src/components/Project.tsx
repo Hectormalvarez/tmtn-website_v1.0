@@ -16,7 +16,7 @@ const Project: React.FC<ProjectProps> = ({ project }) => {
   const { adminState } = useAdmin()
   const showEditForm = adminState.currentlyEditing.id == project.id
   const showDeleteForm = adminState.currentlyDeleting.id == project.id
-  const showDeleteButton = project.links?.length === 0
+  const showDeleteButton = project.links?.length === 0 || !project.links
   const showButtons =
     adminState.editingProjects &&
     adminState.currentlyEditing.id !== project.id &&

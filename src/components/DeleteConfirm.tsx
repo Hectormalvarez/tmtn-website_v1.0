@@ -2,7 +2,7 @@ import React from 'react'
 
 import { useAdmin } from '../hooks/AdminContext'
 import { EAdminAction } from '../hooks/adminReducer'
-import { deleteProjectLinkFromCloud } from '../service/projectService'
+import { deleteProjectLinkFromCloud, deleteProjectFromCloud } from '../service/projectService'
 
 const DeleteConfirm: React.FC<{ name: string; type: 'project' | 'link'; id: string }> = ({
   name,
@@ -12,13 +12,18 @@ const DeleteConfirm: React.FC<{ name: string; type: 'project' | 'link'; id: stri
   const { dispatch, projectData, setProjectData } = useAdmin()
 
   const handleDeleteOnClick = () => {
-    console.log(`deleting ${id}`)
+    console.log(`deleting ${id}, type ${type}`)
     if (type === 'link') {
-      deleteProjectLinkFromCloud(id, type)
+      deleteProjectLinkFromCloud(id)
       const updatedProjectData = projectData.map((project) => {
         project.links = project.links?.filter((link) => link.id !== id)
         return project
       })
+      setProjectData(updatedProjectData)
+    }
+    if (type === 'project') {
+      deleteProjectFromCloud(id)
+      const updatedProjectData = projectData.filter((project) => project.id !== id)
       setProjectData(updatedProjectData)
     }
     dispatch({ type: EAdminAction.SET_CURRENTLY_DELETING, setCurrentlyDeleting: null })
