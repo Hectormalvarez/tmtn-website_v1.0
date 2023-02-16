@@ -1,19 +1,30 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { v4 as uuidv4 } from 'uuid';
 
 import { IProject } from '../hooks/AdminContext'
 import { createProject } from '../service/projectService'
+import { useAdmin } from '../hooks/AdminContext'
+import { EAdminAction } from '../hooks/adminReducer'
+
 
 const AddProject = () => {
+  const { projectData, setProjectData, dispatch } = useAdmin()
+
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm<IProject>()
 
   const onSubmit = handleSubmit((data) => {
-    createProject(data)
+    if (!isDirty) return
+
+    const newProject = { ...data, id: uuidv4() }
+    createProject(newProject)
+    setProjectData([newProject, ...projectData])
+    dispatch({ type: EAdminAction.ADDING_PROJECT, payload: false })
     reset()
   })
 
