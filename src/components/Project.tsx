@@ -21,10 +21,11 @@ const Project: React.FC<ProjectProps> = ({ project }) => {
     adminState.editingProjects &&
     adminState.currentlyEditing.id !== project.id &&
     adminState.currentlyDeleting.id !== project.id
+  const flexProjectLayout = adminState.currentlyEditing.id ? '' : 'lg:flex'
 
   return (
     <article key={project.name} className='m-4 bg-gray-800 p-2 text-white'>
-      <div className={`w-full ${adminState.currentlyEditing.id ? '' : 'lg:flex'}`}>
+      <div className={`w-full ${flexProjectLayout}`}>
         {showButtons && (
           <div className='m-2 flex gap-2 lg:flex-col'>
             <EditButton type='project' id={project.id} />
