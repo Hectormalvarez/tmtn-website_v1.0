@@ -24,7 +24,7 @@ const Project: React.FC<ProjectProps> = ({ project }) => {
 
   return (
     <article key={project.name} className='m-4 bg-gray-800 p-2 text-white'>
-      <div className={`w-full ${adminState.currentlyEditing ? '' : 'lg:flex'}`}>
+      <div className={`w-full ${adminState.currentlyEditing.id ? '' : 'lg:flex'}`}>
         {showButtons && (
           <div className='m-2 flex gap-2 lg:flex-col'>
             <EditButton type='project' id={project.id} />
